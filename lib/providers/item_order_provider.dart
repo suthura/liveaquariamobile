@@ -4,12 +4,14 @@ import 'package:aquaria_mobile/models/advertisement_model.dart';
 import 'package:aquaria_mobile/models/main_item_model.dart';
 import 'package:aquaria_mobile/models/orders_model.dart';
 import 'package:aquaria_mobile/models/sup_req_model.dart';
+import 'package:aquaria_mobile/providers/auth_provider.dart';
 import 'package:aquaria_mobile/utils/custom_http.dart';
 import 'package:aquaria_mobile/utils/error_messages.dart';
 import 'package:aquaria_mobile/utils/url_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'dart:developer' as dev;
 
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -180,10 +182,16 @@ class ItemOrderProvider extends ChangeNotifier {
   List<SingleSupplierRequestModel> getSeperateSupReq({required String approval, required List<int> published}) {
     List<SingleSupplierRequestModel> temp = [];
     if (getloadedSupplierReqs != null) {
-      return getloadedSupplierReqs!.data!.where((element) => element.status == approval && published.contains(element.isPublish)).toList();
-    } else {
-      return temp;
+      for (var i = 0; i < getloadedSupplierReqs!.data!.length; i++) {
+        if (getloadedSupplierReqs!.data![i].status == approval && published.contains(getloadedSupplierReqs!.data![i].isPublish)) {
+          temp.add(getloadedSupplierReqs!.data![i]);
+        }
+      }
+      // return getloadedSupplierReqs!.data!.where((element) => element.status == approval && published.contains(element.isPublish)).toList();
     }
+    // else {
+    return temp;
+    // }
   }
 
   AvertisementsModel? loadedadslist;
@@ -262,10 +270,17 @@ class ItemOrderProvider extends ChangeNotifier {
 
   OrdersModel? loadedOrdersList;
   OrdersModel? get getloadedOrdersList => loadedOrdersList;
-  setloadedOrdersList(val) {
+  setloadedOrdersList(OrdersModel? val) {
     loadedOrdersList = val;
     notifyListeners();
   }
+
+  // OrdersModel? loadedSubOrdersList;
+  // OrdersModel? get getloadedSubOrdersList => loadedSubOrdersList;
+  // setloadedSubOrdersList(OrdersModel? val) {
+  //   loadedSubOrdersList = val;
+  //   notifyListeners();
+  // }
 
   bool isLoadingOrders = false;
   bool get getisLoadingOrders => isLoadingOrders;
@@ -277,18 +292,35 @@ class ItemOrderProvider extends ChangeNotifier {
   Future<void> loadOrders(context, {bool isSubUser = false}) async {
     try {
       setisLoadingOrders(true);
-      // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
+      var type = Provider.of<AuthProvider>(context, listen: false).getloggedinUser!.data!.role;
+
+      String url = '';
+      url = isSubUser ? kGetSUbOrder : kSaveOrder;
+      if (type == 'supplier') {
+        url = kSaveOrder;
+      }
+
+      dev.log(url);
+
       final response = await CustomHttp.getDio().get(
-        isSubUser ? kGetSUbOrder : kSaveOrder,
+        url,
       );
 
       var encoded = jsonEncode(response.data);
-      dev.log(response.data.toString());
+      // dev.log(response.data.toString());
 
       OrdersModel temp = OrdersModel.fromJson(jsonDecode(encoded));
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // if (isSubUser) {
         setloadedOrdersList(temp);
+        // dev.log(getloadedOrdersList!.data!.length.toString());
+        // } else {
+        //   setloadedSubOrdersList(temp);
+        dev.log("temp:" + temp.data!.length.toString());
+
+        dev.log("set:" + getloadedOrdersList!.data!.length.toString());
+        // }
       } else {
         errorMessage(context, errorTxt: 'Error Loading Orders').show();
       }
@@ -301,21 +333,32 @@ class ItemOrderProvider extends ChangeNotifier {
 
   List<SingleOrder> getSepeateOrderMainUser({required String approval}) {
     List<SingleOrder> temp = [];
-    if (getloadedSupplierReqs != null) {
-      return getloadedOrdersList!.data!.where((element) => element.adminStatus == approval).toList();
-    } else {
-      return temp;
+    if (getloadedOrdersList != null) {
+      for (var i = 0; i < getloadedOrdersList!.data!.length; i++) {
+        // dev.log("$i : ${getloadedOrdersList!.data![i].adminStatus} : $approval");
+        if (getloadedOrdersList!.data![i].adminStatus == approval) {
+          temp.add(getloadedOrdersList!.data![i]);
+        }
+      }
     }
+    return temp;
   }
 
-  List<SingleOrder> getSepeateOrderSubUser({required String approval}) {
-    List<SingleOrder> temp = [];
-    if (getloadedSupplierReqs != null) {
-      return getloadedOrdersList!.data!.where((element) => element.userStatus == approval).toList();
-    } else {
-      return temp;
-    }
-  }
+  // List<SingleOrder> getSepeateOrderSubUser({required String approval}) {
+  //   List<SingleOrder> temp = [];
+  //   if (getloadedSubOrdersList != null) {
+  //     for (var i = 0; i < getloadedSubOrdersList!.data!.length; i++) {
+  //       if (getloadedSubOrdersList!.data![i].adminStatus == approval) {
+  //         temp.add(getloadedSubOrdersList!.data![i]);
+  //       }
+  //     }
+  //     // return getloadedOrdersList!.data!.where((element) => element.userStatus == approval).toList();
+  //   }
+  //   return temp;
+  //   // else {
+  //   //   return temp;
+  //   // }
+  // }
 
   bool isUpdatingStatus = false;
   bool get getisUpdatingStatus => isUpdatingStatus;
@@ -340,13 +383,13 @@ class ItemOrderProvider extends ChangeNotifier {
     try {
       setisUpdatingStatus(true);
 
-      FormData formData = FormData.fromMap({
-        "user_status": status,
-        "user_note": userNoteController.text,
-      });
+      // FormData formData = FormData.fromMap();
       final response = await CustomHttp.getDio().put(
         "$kSaveOrder/${item.id}",
-        data: formData,
+        data: {
+          "user_status": status,
+          "user_note": userNoteController.text,
+        },
       );
 
       // var encoded = jsonEncode(response.data);

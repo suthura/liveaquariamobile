@@ -147,7 +147,7 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                           ),
                         ),
                         child: Text(
-                          'Quantity : ${widget.item.quantity!}',
+                          'Order Quantity : ${widget.item.quantity!}',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,

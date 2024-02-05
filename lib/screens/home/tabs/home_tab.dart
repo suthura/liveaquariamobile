@@ -219,11 +219,11 @@ class _HomeTabState extends State<HomeTab> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          image: loadedItems.loadedMainItems!.data![0].images!.isEmpty
+                          image: loadedItems.loadedMainItems!.data![index].images!.isEmpty
                               ? DecorationImage(image: AssetImage('assets/images/fish.png'))
                               : DecorationImage(
                                   image: NetworkImage(
-                                    loadedItems.loadedMainItems!.data![0].images![0],
+                                    loadedItems.loadedMainItems!.data![index].images![0],
                                   ),
                                   fit: BoxFit.cover,
                                 ),

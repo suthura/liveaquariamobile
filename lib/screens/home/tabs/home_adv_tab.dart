@@ -221,11 +221,11 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                             color: Colors.black.withOpacity(.5),
                           ),
                           borderRadius: BorderRadius.circular(12),
-                          image: loadedItems.getloadedadslist!.data![0].images!.isEmpty
+                          image: loadedItems.getloadedadslist!.data![index].images!.isEmpty
                               ? const DecorationImage(image: AssetImage('assets/images/fish.png'))
                               : DecorationImage(
                                   image: NetworkImage(
-                                    loadedItems.getloadedadslist!.data![0].images![0],
+                                    loadedItems.getloadedadslist!.data![index].images![0],
                                   ),
                                   fit: BoxFit.cover,
                                 ),

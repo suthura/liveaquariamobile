@@ -23,18 +23,22 @@ class OrdersModel {
 
 class SingleOrder {
   int? id;
+  String? type;
   int? quantity;
+  String? address;
   String? userStatus;
   String? userNote;
   String? adminStatus;
   String? adminNote;
   Advertisement? advertisement;
 
-  SingleOrder({this.id, this.quantity, this.userStatus, this.userNote, this.adminStatus, this.adminNote, this.advertisement});
+  SingleOrder({this.id, this.type, this.quantity, this.address, this.userStatus, this.userNote, this.adminStatus, this.adminNote, this.advertisement});
 
   SingleOrder.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    type = json['type'];
     quantity = json['quantity'];
+    address = json['address'];
     userStatus = json['user_status'];
     userNote = json['user_note'];
     adminStatus = json['admin_status'];
@@ -45,7 +49,9 @@ class SingleOrder {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['type'] = this.type;
     data['quantity'] = this.quantity;
+    data['address'] = this.address;
     data['user_status'] = this.userStatus;
     data['user_note'] = this.userNote;
     data['admin_status'] = this.adminStatus;

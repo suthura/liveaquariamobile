@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if (auth.getloggedinUser!.data!.role == "user" || auth.getloggedinUser!.data!.role == "sub_user") ...[
               // HomeTab(),
               HomeAdvTab(),
-              OrderRequestsTab(),
+              OrderRequestsTab(isSubUser: false),
               if (auth.getloggedinUser!.data!.role != "sub_user") ...[
                 SubOrderRequestsTab(
                   isSubUser: true,

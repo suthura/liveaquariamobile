@@ -236,6 +236,14 @@ class SupplierRequestCard extends StatelessWidget {
                 )
               ],
             ),
+            Row(
+              children: [
+                Text(
+                  'Note :${order.userNote ?? ""}',
+                  style: TextStyle(color: kTxtWhite),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 10,
             ),
