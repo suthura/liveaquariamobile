@@ -5,6 +5,7 @@ import 'package:aquaria_mobile/screens/home/tabs/home_tab.dart';
 import 'package:aquaria_mobile/screens/home/tabs/order_requests.dart';
 import 'package:aquaria_mobile/screens/home/tabs/profile_tab.dart';
 import 'package:aquaria_mobile/screens/home/tabs/requests_tab.dart';
+import 'package:aquaria_mobile/screens/home/tabs/sub_order_requests.dart';
 import 'package:aquaria_mobile/screens/home/tabs/users_tab.dart';
 import 'package:aquaria_mobile/utils/color_constants.dart';
 import 'package:aquaria_mobile/widgets/custom_background_container.dart';
@@ -101,7 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
               HomeAdvTab(),
               OrderRequestsTab(),
               if (auth.getloggedinUser!.data!.role != "sub_user") ...[
-                OrderRequestsTab(),
+                SubOrderRequestsTab(
+                  isSubUser: true,
+                ),
                 UsersTab(),
               ],
             ],

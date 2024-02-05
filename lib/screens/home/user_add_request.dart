@@ -46,25 +46,78 @@ class _UserAddRequestState extends State<UserAddRequest> {
                       SizedBox(
                         height: size.getPropotionateHeight(18),
                       ),
-                      Text(
-                        'Quantity',
-                        style: TextStyle(
-                          color: kTxtWhite,
-                          fontSize: size.getTextSize(14),
+                      Theme(
+                        data: ThemeData(
+                          //here change to your color
+                          unselectedWidgetColor: Colors.white,
                         ),
-                      ),
-                      SizedBox(
-                        height: size.getPropotionateHeight(5),
-                      ),
-                      CommonInputField(
-                        hint: 'Quantity',
-                        controller: itmOrder.getQuantityController,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .4,
+                              child: RadioListTile<String>(
+                                contentPadding: EdgeInsets.all(0),
+                                title: Text(
+                                  'Sample',
+                                  style: TextStyle(
+                                    color: kTxtWhite,
+                                  ),
+                                ),
+                                value: 'Sample',
+                                groupValue: itmOrder.getselectedOrderType,
+                                onChanged: (value) {
+                                  itmOrder.setselectedOrderType(value);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .4,
+                              child: RadioListTile<String>(
+                                contentPadding: EdgeInsets.all(0),
+                                title: Text(
+                                  'Order',
+                                  style: TextStyle(
+                                    color: kTxtWhite,
+                                  ),
+                                ),
+                                value: 'Order',
+                                groupValue: itmOrder.getselectedOrderType,
+                                onChanged: (value) {
+                                  itmOrder.setselectedOrderType(value);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: size.getPropotionateHeight(14),
                       ),
+                      if (itmOrder.getselectedOrderType != "Sample")
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Quantity',
+                              style: TextStyle(
+                                color: kTxtWhite,
+                                fontSize: size.getTextSize(14),
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(5),
+                            ),
+                            CommonInputField(
+                              hint: 'Quantity',
+                              controller: itmOrder.getQuantityController,
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(14),
+                            ),
+                          ],
+                        ),
                       Text(
-                        'Breeding Capacity',
+                        'Address',
                         style: TextStyle(
                           color: kTxtWhite,
                           fontSize: size.getTextSize(14),
@@ -74,42 +127,8 @@ class _UserAddRequestState extends State<UserAddRequest> {
                         height: size.getPropotionateHeight(5),
                       ),
                       CommonInputField(
-                        hint: 'Breeding Capacity',
-                        controller: itmOrder.getBreedingCapacityController,
-                      ),
-                      SizedBox(
-                        height: size.getPropotionateHeight(14),
-                      ),
-                      Text(
-                        'Future Collection',
-                        style: TextStyle(
-                          color: kTxtWhite,
-                          fontSize: size.getTextSize(14),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.getPropotionateHeight(5),
-                      ),
-                      CommonInputField(
-                        hint: 'Future Collection',
-                        controller: itmOrder.getFutureCollectionController,
-                      ),
-                      SizedBox(
-                        height: size.getPropotionateHeight(14),
-                      ),
-                      Text(
-                        'Description',
-                        style: TextStyle(
-                          color: kTxtWhite,
-                          fontSize: size.getTextSize(14),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.getPropotionateHeight(5),
-                      ),
-                      CommonInputField(
-                        hint: 'Description',
-                        controller: itmOrder.getDescriptionController,
+                        hint: 'Address',
+                        controller: itmOrder.getaddressController,
                       ),
                       SizedBox(
                         height: size.getPropotionateHeight(14),
@@ -140,7 +159,7 @@ class _UserAddRequestState extends State<UserAddRequest> {
                         size: size,
                         btnTxt: "Send Request",
                         onTap: () {
-                          // itmord.saveSuplierRequest(context, item: widget.item);
+                          itmord.saveOrderrRequest(context, item: widget.item);
                         },
                       );
                     },

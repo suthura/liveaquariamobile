@@ -7,18 +7,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class OrderRequestsTab extends StatefulWidget {
-  const OrderRequestsTab({
+class SubOrderRequestsTab extends StatefulWidget {
+  const SubOrderRequestsTab({
     super.key,
     this.isSubUser = false,
   });
   final bool isSubUser;
 
   @override
-  State<OrderRequestsTab> createState() => _OrderRequestsTabState();
+  State<SubOrderRequestsTab> createState() => _SubOrderRequestsTabState();
 }
 
-class _OrderRequestsTabState extends State<OrderRequestsTab> {
+class _SubOrderRequestsTabState extends State<SubOrderRequestsTab> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -35,7 +35,7 @@ class _OrderRequestsTabState extends State<OrderRequestsTab> {
       child: Consumer<ItemOrderProvider>(
         builder: (context, itmOrder, child) {
           if (itmOrder.getisLoadingOrders) {
-            return const CupertinoActivityIndicator(
+            return CupertinoActivityIndicator(
               color: kTxtWhite,
             );
           }
@@ -57,8 +57,8 @@ class _OrderRequestsTabState extends State<OrderRequestsTab> {
                 isScrollable: true,
                 tabs: [
                   Tab(text: 'Pending(${itmOrder.getSepeateOrderMainUser(approval: 'pending').length})'),
-                  const Tab(text: 'Approved'),
-                  const Tab(text: 'Rejected'),
+                  Tab(text: 'Approved'),
+                  Tab(text: 'Rejected'),
                 ],
               ),
               // Expanded(child: Container())
@@ -164,7 +164,7 @@ class SupplierRequestCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) => PastSingleUserRequest(item: order),
+            builder: (BuildContext context) => PastSingleUserRequest(item: order, isFromMainUser: true),
           ),
         );
       },
@@ -191,7 +191,7 @@ class SupplierRequestCard extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: '${order.advertisement!.item!.commonName!}\n',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,
                           fontFamily: 'Inter',
@@ -200,7 +200,7 @@ class SupplierRequestCard extends StatelessWidget {
                       ),
                       TextSpan(
                         text: 'Item ID: ${order.advertisement!.item!.code!}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,
                           fontFamily: 'Inter',
@@ -226,7 +226,7 @@ class SupplierRequestCard extends StatelessWidget {
                   ),
                   child: Text(
                     'Quantity: ${order.quantity}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                       fontFamily: 'Inter',

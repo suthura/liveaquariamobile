@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aquaria_mobile/models/advertisement_model.dart';
 import 'package:aquaria_mobile/models/main_item_model.dart';
+import 'package:aquaria_mobile/models/orders_model.dart';
 import 'package:aquaria_mobile/models/sup_req_model.dart';
 import 'package:aquaria_mobile/utils/custom_http.dart';
 import 'package:aquaria_mobile/utils/error_messages.dart';
@@ -10,6 +11,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:developer' as dev;
+
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ItemOrderProvider extends ChangeNotifier {
   bool isLoadingItems = false;
@@ -212,6 +215,169 @@ class ItemOrderProvider extends ChangeNotifier {
       dev.log(e.toString());
     } finally {
       setisLoadingItems(false);
+    }
+  }
+
+  String selectedOrderType = 'Sample';
+  String get getselectedOrderType => selectedOrderType;
+  setselectedOrderType(val) {
+    selectedOrderType = val;
+    notifyListeners();
+  }
+
+  TextEditingController addressController = TextEditingController();
+  TextEditingController get getaddressController => addressController;
+
+  Future<void> saveOrderrRequest(context, {required SingleAvertisement item}) async {
+    try {
+      setisSavingRequest(true);
+
+      FormData formData = FormData.fromMap({
+        "type": getselectedOrderType == "Sample" ? "sample_order" : "place_order",
+        "supplier_request_id": item.id,
+        "quantity": getselectedOrderType == "Sample" ? "1" : quantityController.text,
+        "address": addressController.text,
+      });
+      final response = await CustomHttp.getDio().post(
+        kSaveOrder,
+        data: formData,
+      );
+
+      // var encoded = jsonEncode(response.data);
+      dev.log(response.data.toString());
+
+      // BaseModel temp = BaseModel.fromJson(jsonDecode(encoded));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        errorMessage(context, errorTxt: 'Request Sent', btnType: 3).show();
+      } else {
+        errorMessage(context, errorTxt: 'Error Sending Request').show();
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {
+      setisSavingRequest(false);
+    }
+  }
+
+  OrdersModel? loadedOrdersList;
+  OrdersModel? get getloadedOrdersList => loadedOrdersList;
+  setloadedOrdersList(val) {
+    loadedOrdersList = val;
+    notifyListeners();
+  }
+
+  bool isLoadingOrders = false;
+  bool get getisLoadingOrders => isLoadingOrders;
+  setisLoadingOrders(val) {
+    isLoadingOrders = val;
+    notifyListeners();
+  }
+
+  Future<void> loadOrders(context, {bool isSubUser = false}) async {
+    try {
+      setisLoadingOrders(true);
+      // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
+      final response = await CustomHttp.getDio().get(
+        isSubUser ? kGetSUbOrder : kSaveOrder,
+      );
+
+      var encoded = jsonEncode(response.data);
+      dev.log(response.data.toString());
+
+      OrdersModel temp = OrdersModel.fromJson(jsonDecode(encoded));
+
+      if (response.statusCode == 200) {
+        setloadedOrdersList(temp);
+      } else {
+        errorMessage(context, errorTxt: 'Error Loading Orders').show();
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {
+      setisLoadingOrders(false);
+    }
+  }
+
+  List<SingleOrder> getSepeateOrderMainUser({required String approval}) {
+    List<SingleOrder> temp = [];
+    if (getloadedSupplierReqs != null) {
+      return getloadedOrdersList!.data!.where((element) => element.adminStatus == approval).toList();
+    } else {
+      return temp;
+    }
+  }
+
+  List<SingleOrder> getSepeateOrderSubUser({required String approval}) {
+    List<SingleOrder> temp = [];
+    if (getloadedSupplierReqs != null) {
+      return getloadedOrdersList!.data!.where((element) => element.userStatus == approval).toList();
+    } else {
+      return temp;
+    }
+  }
+
+  bool isUpdatingStatus = false;
+  bool get getisUpdatingStatus => isUpdatingStatus;
+  setisUpdatingStatus(val) {
+    isUpdatingStatus = val;
+    notifyListeners();
+  }
+
+  TextEditingController userNoteController = TextEditingController();
+  TextEditingController get getuserNoteController => userNoteController;
+
+  setuserNoteController(String? val) {
+    if (val == null) {
+      userNoteController.clear();
+    } else {
+      userNoteController.text = val;
+    }
+    notifyListeners();
+  }
+
+  Future<void> updateOrderrRequest(context, {required String status, required SingleOrder item}) async {
+    try {
+      setisUpdatingStatus(true);
+
+      FormData formData = FormData.fromMap({
+        "user_status": status,
+        "user_note": userNoteController.text,
+      });
+      final response = await CustomHttp.getDio().put(
+        "$kSaveOrder/${item.id}",
+        data: formData,
+      );
+
+      // var encoded = jsonEncode(response.data);
+      dev.log(response.data.toString());
+
+      // BaseModel temp = BaseModel.fromJson(jsonDecode(encoded));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        loadOrders(context, isSubUser: true);
+        errorMessage(
+          context,
+          errorTxt: 'Request Updated',
+          btnType: 3,
+          buttons: [
+            DialogButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ).show();
+      } else {
+        errorMessage(context, errorTxt: 'Error Updating').show();
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {
+      setisUpdatingStatus(false);
     }
   }
 }

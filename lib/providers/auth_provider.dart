@@ -102,7 +102,7 @@ class AuthProvider extends ChangeNotifier {
     setIsCreatingUser(true);
     try {
       FormData formData = FormData.fromMap({
-        "avatar": [await MultipartFile.fromFile(getuserimage!.path)],
+        "avatar": getuserimage == null ? "" : [await MultipartFile.fromFile(getuserimage!.path)],
         "name": nameController.text,
         "email": emailController.text,
         "phone": phoneController.text,
