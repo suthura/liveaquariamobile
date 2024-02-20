@@ -20,6 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomBackGroundContainer(
+      backgroundColor: kTxtWhite,
+      customDecoration: BoxDecoration(),
       child: SingleChildScrollView(
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: size.getPropotionateWidth(20)),
@@ -35,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/images/logo.png',
+                          'assets/images/logo2.jpeg',
                           width: size.getPropotionateWidth(200),
                           height: size.getPropotionateWidth(200),
                         )
@@ -44,17 +46,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       'Login',
                       style: TextStyle(
-                        color: kTxtWhite,
+                        // color: kTxtWhite,
                         fontSize: size.getTextSize(28),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     SizedBox(
-                      height: size.getPropotionateHeight(23),
+                      height: size.getPropotionateHeight(30),
                     ),
                     Text(
                       'Email',
                       style: TextStyle(
-                        color: kTxtWhite,
+                        // color: kTxtWhite,
                         fontSize: size.getTextSize(16),
                       ),
                     ),
@@ -66,12 +69,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: auth.getUsernameController,
                     ),
                     SizedBox(
-                      height: size.getPropotionateHeight(30),
+                      height: size.getPropotionateHeight(25),
                     ),
                     Text(
                       'Password',
                       style: TextStyle(
-                        color: kTxtWhite,
+                        // color: kTxtWhite,
                         fontSize: size.getTextSize(16),
                       ),
                     ),
@@ -83,15 +86,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: auth.getPasswordController,
                       obscureText: true,
                     ),
-                    SizedBox(
-                      height: size.getPropotionateHeight(17),
-                    ),
+                    // SizedBox(
+                    //     // height: size.getPropotionateHeight(5),
+                    //     ),
                     Text(
                       'Forgot Password?',
                       style: TextStyle(
-                        color: Colors.white,
+                        // color: Colors.white,
                         fontSize: 12,
-                        fontFamily: 'Inter',
+
                         fontWeight: FontWeight.w400,
                         decoration: TextDecoration.underline,
                       ),
@@ -104,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CupertinoActivityIndicator(
-                                color: kTxtWhite,
+                                color: Color(0xFF0E52A8),
                               ),
                             ],
                           )

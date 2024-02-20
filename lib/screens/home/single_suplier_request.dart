@@ -5,9 +5,11 @@ import 'package:aquaria_mobile/utils/size_config.dart';
 import 'package:aquaria_mobile/widgets/common_back_button.dart';
 import 'package:aquaria_mobile/widgets/common_button.dart';
 import 'package:aquaria_mobile/widgets/custom_background_container.dart';
+import 'package:aquaria_mobile/widgets/video_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:popup_banner/popup_banner.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 class SingleSupplierRequest extends StatefulWidget {
@@ -79,7 +81,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -102,7 +103,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -133,28 +133,44 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                       itemCount: widget.item.images!.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return Container(
-                          width: size.getPropotionateWidth(92),
-                          height: size.getPropotionateWidth(80),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Colors.white.withOpacity(0.25),
-                                Colors.white.withOpacity(0.15),
-                              ],
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12.0),
-                            child: Image.network(
-                              widget.item.images![index],
-                              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                                return const Center(child: Text('This image type is not supported'));
+                        return InkWell(
+                          onTap: () {
+                            PopupBanner(
+                              context: context,
+                              fit: BoxFit.contain,
+                              height: MediaQuery.of(context).size.width,
+                              images: widget.item.images!,
+                              dotsAlignment: Alignment.bottomCenter,
+                              dotsColorActive: Colors.blue,
+                              dotsColorInactive: Colors.grey.withOpacity(0.5),
+                              onClick: (index) {
+                                debugPrint("CLICKED $index");
                               },
-                              fit: BoxFit.cover,
+                            ).show();
+                          },
+                          child: Container(
+                            width: size.getPropotionateWidth(92),
+                            height: size.getPropotionateWidth(80),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white.withOpacity(0.25),
+                                  Colors.white.withOpacity(0.15),
+                                ],
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: Image.network(
+                                widget.item.images![index],
+                                errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                  return const Center(child: Text('This image type is not supported'));
+                                },
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         );
@@ -194,43 +210,53 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                         itemCount: widget.item.videos!.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return Container(
-                            width: size.getPropotionateWidth(92),
-                            height: size.getPropotionateWidth(80),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.white.withOpacity(0.25),
-                                  Colors.white.withOpacity(0.15),
-                                ],
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) => VideoPage(url: widget.item.videos![index]),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: size.getPropotionateWidth(92),
+                              height: size.getPropotionateWidth(80),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
                               ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12.0),
-                              child: FutureBuilder<Widget>(
-                                future: getVideoThumbnail(widget.item.videos![index]),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                    return CupertinoActivityIndicator(
-                                      color: kTxtWhite,
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return Text('Error: ${snapshot.error}');
-                                  } else {
-                                    return snapshot.data!;
-                                  }
-                                },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12.0),
+                                child: FutureBuilder<Widget>(
+                                  future: getVideoThumbnail(widget.item.videos![index]),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                      return CupertinoActivityIndicator(
+                                        color: kTxtWhite,
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else {
+                                      return snapshot.data!;
+                                    }
+                                  },
+                                ),
+                                // child: Image.network(
+                                //   widget.item.images![index],
+                                //   errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                //     return const Center(child: Text('This image type is not supported'));
+                                //   },
+                                //   fit: BoxFit.cover,
+                                // ),
                               ),
-                              // child: Image.network(
-                              //   widget.item.images![index],
-                              //   errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                              //     return const Center(child: Text('This image type is not supported'));
-                              //   },
-                              //   fit: BoxFit.cover,
-                              // ),
                             ),
                           );
                         },
@@ -274,7 +300,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -283,7 +308,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -312,7 +336,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -321,7 +344,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -350,7 +372,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -359,7 +380,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -387,7 +407,6 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
-                      fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -431,7 +450,7 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                       //             style: TextStyle(
                       //               color: Colors.white,
                       //               fontSize: 16,
-                      //               fontFamily: 'Inter',
+                      //
                       //               fontWeight: FontWeight.w600,
                       //             ),
                       //           ),
@@ -487,7 +506,7 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                       //             style: TextStyle(
                       //               color: Colors.white,
                       //               fontSize: 16,
-                      //               fontFamily: 'Inter',
+                      //
                       //               fontWeight: FontWeight.w600,
                       //             ),
                       //           ),

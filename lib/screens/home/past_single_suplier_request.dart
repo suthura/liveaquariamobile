@@ -84,7 +84,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -107,7 +106,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -286,7 +284,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -295,7 +292,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -324,7 +320,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -333,7 +328,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -362,7 +356,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -371,7 +364,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -399,7 +391,6 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
-                      fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -443,7 +434,7 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                   //     //             style: TextStyle(
                   //     //               color: Colors.white,
                   //     //               fontSize: 16,
-                  //     //               fontFamily: 'Inter',
+                  //     //
                   //     //               fontWeight: FontWeight.w600,
                   //     //             ),
                   //     //           ),
@@ -499,7 +490,7 @@ class _PastSingleSupplierRequestState extends State<PastSingleSupplierRequest> {
                   //     //             style: TextStyle(
                   //     //               color: Colors.white,
                   //     //               fontSize: 16,
-                  //     //               fontFamily: 'Inter',
+                  //     //
                   //     //               fontWeight: FontWeight.w600,
                   //     //             ),
                   //     //           ),

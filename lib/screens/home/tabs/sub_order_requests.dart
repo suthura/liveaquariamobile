@@ -49,7 +49,6 @@ class _SubOrderRequestsTabState extends State<SubOrderRequestsTab> {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
-                  fontFamily: 'Inter',
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -194,7 +193,6 @@ class SupplierRequestCard extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,
-                          fontFamily: 'Inter',
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -203,7 +201,6 @@ class SupplierRequestCard extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,
-                          fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -229,7 +226,6 @@ class SupplierRequestCard extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
-                      fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -267,7 +263,7 @@ class SupplierRequestCard extends StatelessWidget {
             //         style: TextStyle(
             //           color: Colors.white,
             //           fontSize: 12,
-            //           fontFamily: 'Inter',
+            //
             //           fontWeight: FontWeight.w400,
             //         ),
             //       ),
@@ -283,7 +279,7 @@ class SupplierRequestCard extends StatelessWidget {
             //   style: TextStyle(
             //     color: Colors.white.withOpacity(0.699999988079071),
             //     fontSize: 14,
-            //     fontFamily: 'Inter',
+            //
             //     fontWeight: FontWeight.w400,
             //     letterSpacing: 0.14,
             //   ),

@@ -54,7 +54,6 @@ class CommonBackButton extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontSize: 24,
-            fontFamily: 'Inter',
             fontWeight: FontWeight.w700,
           ),
         ),

@@ -12,6 +12,7 @@ import 'package:aquaria_mobile/widgets/video_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:popup_banner/popup_banner.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -76,133 +77,151 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                   SizedBox(
                     height: size.getPropotionateHeight(18),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0E52A8),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
+                              ),
+                              child: Text(
+                                'Code: ${widget.item.advertisement!.item!.code}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
+                              ),
+                              child: Text(
+                                'Scientific: ${widget.item.advertisement!.item!.scientificName}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        child: Text(
-                          'Code: ${widget.item.advertisement!.item!.code}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                          ),
+                        Divider(
+                          color: Colors.grey,
                         ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
+                        // SizedBox(
+                        //   height: size.getPropotionateHeight(18),
+                        // ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
+                              ),
+                              child: Text(
+                                'Order Quantity : ${widget.item.quantity!}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
+                              ),
+                              child: Text(
+                                'Breeding : ${widget.item.advertisement!.breedingCapacity!}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
+                              ),
+                              child: Text(
+                                'Future : ${widget.item.advertisement!.futureCollection!}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        child: Text(
-                          'Scientific: ${widget.item.advertisement!.item!.scientificName}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.getPropotionateHeight(18),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
-                        ),
-                        child: Text(
-                          'Order Quantity : ${widget.item.quantity!}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
-                        ),
-                        child: Text(
-                          'Breeding : ${widget.item.advertisement!.breedingCapacity!}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
-                        ),
-                        child: Text(
-                          'Future : ${widget.item.advertisement!.futureCollection!}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
                   SizedBox(
@@ -229,28 +248,44 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                       itemCount: widget.item.advertisement!.images!.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return Container(
-                          width: size.getPropotionateWidth(92),
-                          height: size.getPropotionateWidth(80),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Colors.white.withOpacity(0.25),
-                                Colors.white.withOpacity(0.15),
-                              ],
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12.0),
-                            child: Image.network(
-                              widget.item.advertisement!.images![index],
-                              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                                return const Center(child: Text('This image type is not supported'));
+                        return InkWell(
+                          onTap: () {
+                            PopupBanner(
+                              context: context,
+                              fit: BoxFit.contain,
+                              height: MediaQuery.of(context).size.width,
+                              images: widget.item.advertisement!.images!,
+                              dotsAlignment: Alignment.bottomCenter,
+                              dotsColorActive: Colors.blue,
+                              dotsColorInactive: Colors.grey.withOpacity(0.5),
+                              onClick: (index) {
+                                debugPrint("CLICKED $index");
                               },
-                              fit: BoxFit.cover,
+                            ).show();
+                          },
+                          child: Container(
+                            width: size.getPropotionateWidth(92),
+                            height: size.getPropotionateWidth(80),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white.withOpacity(0.25),
+                                  Colors.white.withOpacity(0.15),
+                                ],
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: Image.network(
+                                widget.item.advertisement!.images![index],
+                                errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                  return const Center(child: Text('This image type is not supported'));
+                                },
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         );
@@ -377,7 +412,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -386,7 +420,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -415,7 +448,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -424,7 +456,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -453,7 +484,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.800000011920929),
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -462,7 +492,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                                fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -490,7 +519,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
-                      fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -569,7 +597,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
-                                          fontFamily: 'Inter',
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -642,7 +669,6 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
-                                          fontFamily: 'Inter',
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),

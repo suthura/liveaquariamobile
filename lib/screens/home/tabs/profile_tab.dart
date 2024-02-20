@@ -23,7 +23,6 @@ class ProfileTab extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
-                  fontFamily: 'Inter',
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -35,9 +34,10 @@ class ProfileTab extends StatelessWidget {
                 height: 50,
                 decoration: ShapeDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment(0.28, -0.96),
-                    end: Alignment(-0.28, 0.96),
-                    colors: [Colors.white.withOpacity(0.800000011920929), Colors.white.withOpacity(0.20000000298023224)],
+                    colors: [
+                      Color(0xFF0E52A8),
+                      Color(0xFF4987DA),
+                    ],
                   ),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.white),
@@ -70,7 +70,6 @@ class ProfileTab extends StatelessWidget {
                           style: TextStyle(
                             color: Color(0xFFBCBEC0),
                             fontSize: 14,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                             height: 0,
                           ),
@@ -88,9 +87,10 @@ class ProfileTab extends StatelessWidget {
                 height: 50,
                 decoration: ShapeDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment(0.28, -0.96),
-                    end: Alignment(-0.28, 0.96),
-                    colors: [Colors.white.withOpacity(0.800000011920929), Colors.white.withOpacity(0.20000000298023224)],
+                    colors: [
+                      Color(0xFF0E52A8),
+                      Color(0xFF4987DA),
+                    ],
                   ),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.white),
@@ -123,7 +123,6 @@ class ProfileTab extends StatelessWidget {
                           style: TextStyle(
                             color: Color(0xFFBCBEC0),
                             fontSize: 14,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                             height: 0,
                           ),
@@ -141,9 +140,10 @@ class ProfileTab extends StatelessWidget {
                 height: 50,
                 decoration: ShapeDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment(0.28, -0.96),
-                    end: Alignment(-0.28, 0.96),
-                    colors: [Colors.white.withOpacity(0.800000011920929), Colors.white.withOpacity(0.20000000298023224)],
+                    colors: [
+                      Color(0xFF0E52A8),
+                      Color(0xFF4987DA),
+                    ],
                   ),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.white),
@@ -176,7 +176,6 @@ class ProfileTab extends StatelessWidget {
                           style: TextStyle(
                             color: Color(0xFFBCBEC0),
                             fontSize: 14,
-                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                             height: 0,
                           ),
@@ -229,7 +228,7 @@ class ProfileTab extends StatelessWidget {
               //             style: TextStyle(
               //               color: Color(0xFFBCBEC0),
               //               fontSize: 14,
-              //               fontFamily: 'Inter',
+              //
               //               fontWeight: FontWeight.w400,
               //               height: 0,
               //             ),

@@ -4,9 +4,11 @@ import 'package:aquaria_mobile/providers/item_order_provider.dart';
 import 'package:aquaria_mobile/screens/home/single_user_request.dart';
 import 'package:aquaria_mobile/utils/color_constants.dart';
 import 'package:aquaria_mobile/utils/size_config.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 class HomeAdvTab extends StatefulWidget {
@@ -186,7 +188,6 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
-                      fontFamily: 'Inter',
                       fontWeight: FontWeight.w400,
                     ),
                     textAlign: TextAlign.left,
@@ -206,100 +207,194 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                     );
                   },
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => SingleUserRequest(item: loadedItems.getloadedadslist!.data![index]),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black.withOpacity(.5),
-                          ),
-                          borderRadius: BorderRadius.circular(12),
-                          image: loadedItems.getloadedadslist!.data![index].images!.isEmpty
-                              ? const DecorationImage(image: AssetImage('assets/images/fish.png'))
-                              : DecorationImage(
-                                  image: NetworkImage(
-                                    loadedItems.getloadedadslist!.data![index].images![0],
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                        width: double.infinity,
-                        height: size.getPropotionateHeight(120),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: size.getPropotionateWidth(11),
-                              left: size.getPropotionateWidth(11),
-                              child: Container(
-                                width: size.getPropotionateWidth(120),
-                                height: size.getPropotionateHeight(43),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Colors.black.withOpacity(0.4),
-                                      Colors.black.withOpacity(0.3),
-                                    ],
-                                  ),
-                                ),
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: '${loadedItems.getloadedadslist!.data![index].item!.commonName}\n',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w600,
-                                          height: 0,
+                    return Neumorphic(
+                      style: NeumorphicStyle(
+                        color: Color(0xFF0E52A8),
+                        shape: NeumorphicShape.flat,
+                        lightSource: LightSource.bottom,
+                        depth: -20,
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => SingleUserRequest(item: loadedItems.getloadedadslist!.data![index]),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: size.getPropotionateHeight(120),
+                          child: Row(
+                            children: [
+                              loadedItems.getloadedadslist!.data![index].images!.isEmpty
+                                  ? Image.asset(
+                                      'assets/images/fish.png',
+                                      width: MediaQuery.of(context).size.width * .4,
+                                      height: size.getPropotionateHeight(120),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : CachedNetworkImage(
+                                      width: MediaQuery.of(context).size.width * .4,
+                                      height: size.getPropotionateHeight(120),
+                                      fit: BoxFit.cover,
+                                      imageUrl: loadedItems.getloadedadslist!.data![index].images![0],
+                                      progressIndicatorBuilder: (context, url, downloadProgress) => CupertinoActivityIndicator(
+                                        // value: downloadProgress.progress,
+                                        color: kTxtWhite,
+                                      ),
+                                      errorWidget: (context, url, error) => Icon(
+                                        Icons.error,
+                                      ),
+                                    ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * .4,
+                                      child: Text(
+                                        '${loadedItems.getloadedadslist!.data![index].item!.commonName}',
+                                        style: TextStyle(
+                                          color: kTxtWhite,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * .4,
+                                      child: Text(
+                                        '${loadedItems.getloadedadslist!.data![index].item!.code}',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    if (loadedItems.getloadedadslist!.data![index].description != null)
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width * .4,
+                                        child: Text(
+                                          limitText('${loadedItems.getloadedadslist!.data![index].description}', 50),
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            // fontWeight: FontWeight.,
+                                          ),
+                                          textAlign: TextAlign.justify,
                                         ),
                                       ),
-                                      TextSpan(
-                                        text: 'Item ID: ${loadedItems.getloadedadslist!.data![index].item!.code}',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                          height: 0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              right: size.getPropotionateWidth(10),
-                              top: size.getPropotionateWidth(10),
-                              child: Container(
-                                height: size.getPropotionateWidth(30),
-                                width: size.getPropotionateWidth(30),
-                                decoration: const BoxDecoration(
-                                  color: kTxtWhite,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.arrow_forward_ios_sharp,
-                                  size: 15,
-                                ),
-                              ),
-                            ),
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
+                    // return InkWell(
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute<void>(
+                    //         builder: (BuildContext context) => SingleUserRequest(item: loadedItems.getloadedadslist!.data![index]),
+                    //       ),
+                    //     );
+                    //   },
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //       border: Border.all(
+                    //         color: Colors.black.withOpacity(.5),
+                    //       ),
+                    //       borderRadius: BorderRadius.circular(12),
+                    //       image: loadedItems.getloadedadslist!.data![index].images!.isEmpty
+                    //           ? const DecorationImage(image: AssetImage('assets/images/fish.png'))
+                    //           : DecorationImage(
+                    //               image: NetworkImage(
+                    //                 loadedItems.getloadedadslist!.data![index].images![0],
+                    //               ),
+                    //               fit: BoxFit.cover,
+                    //             ),
+                    //     ),
+                    //     width: double.infinity,
+                    //     height: size.getPropotionateHeight(120),
+                    //     child: Stack(
+                    //       children: [
+                    //         Positioned(
+                    //           top: size.getPropotionateWidth(11),
+                    //           left: size.getPropotionateWidth(11),
+                    //           child: Container(
+                    //             width: size.getPropotionateWidth(120),
+                    //             height: size.getPropotionateHeight(43),
+                    //             alignment: Alignment.center,
+                    //             decoration: BoxDecoration(
+                    //               borderRadius: BorderRadius.circular(12),
+                    //               gradient: LinearGradient(
+                    //                 begin: Alignment.topCenter,
+                    //                 end: Alignment.bottomRight,
+                    //                 colors: [
+                    //                   Colors.black.withOpacity(0.4),
+                    //                   Colors.black.withOpacity(0.3),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             child: Text.rich(
+                    //               TextSpan(
+                    //                 children: [
+                    //                   TextSpan(
+                    //                     text: '${loadedItems.getloadedadslist!.data![index].item!.commonName}\n',
+                    //                     style: const TextStyle(
+                    //                       color: Colors.white,
+                    //                       fontSize: 12,
+                    //
+                    //                       fontWeight: FontWeight.w600,
+                    //                       height: 0,
+                    //                     ),
+                    //                   ),
+                    //                   TextSpan(
+                    //                     text: 'Item ID: ${loadedItems.getloadedadslist!.data![index].item!.code}',
+                    //                     style: const TextStyle(
+                    //                       color: Colors.white,
+                    //                       fontSize: 10,
+                    //
+                    //                       fontWeight: FontWeight.w400,
+                    //                       height: 0,
+                    //                     ),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         Positioned(
+                    //           right: size.getPropotionateWidth(10),
+                    //           top: size.getPropotionateWidth(10),
+                    //           child: Container(
+                    //             height: size.getPropotionateWidth(30),
+                    //             width: size.getPropotionateWidth(30),
+                    //             decoration: const BoxDecoration(
+                    //               color: kTxtWhite,
+                    //               shape: BoxShape.circle,
+                    //             ),
+                    //             child: const Icon(
+                    //               Icons.arrow_forward_ios_sharp,
+                    //               size: 15,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // );
                   },
                 ),
               ),
@@ -311,5 +406,13 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
         );
       },
     );
+  }
+
+  String limitText(String text, int limit) {
+    if (text.length <= limit) {
+      return text;
+    } else {
+      return text.substring(0, limit) + '...';
+    }
   }
 }
