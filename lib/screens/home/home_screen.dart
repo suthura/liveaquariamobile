@@ -1,5 +1,6 @@
 import 'package:aquaria_mobile/providers/auth_provider.dart';
 import 'package:aquaria_mobile/screens/auth/login_screen.dart';
+import 'package:aquaria_mobile/screens/home/tabs/dash_tab.dart';
 import 'package:aquaria_mobile/screens/home/tabs/home_adv_tab.dart';
 import 'package:aquaria_mobile/screens/home/tabs/home_tab.dart';
 import 'package:aquaria_mobile/screens/home/tabs/order_requests.dart';
@@ -51,6 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             type: BottomNavigationBarType.fixed,
             items: [
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.dashboard),
+                label: "Dashboard",
+              ),
               if (auth.getloggedinUser!.data!.role == "supplier") ...[
                 BottomNavigationBarItem(
                   icon: Icon(
@@ -92,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           child: [
+            DashboardTab(),
             if (auth.getloggedinUser!.data!.role == "supplier") ...[
               HomeTab(),
               // Container(),
