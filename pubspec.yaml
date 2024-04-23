@@ -22,6 +22,8 @@ dependencies:
   popup_banner: ^1.0.0
   google_fonts: ^6.1.0
   syncfusion_flutter_charts: 22.2.10
+  image_cropper: ^5.0.1
+  dropdown_search: ^5.0.6
 
 dev_dependencies:
   flutter_test:

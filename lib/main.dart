@@ -6,12 +6,18 @@ import 'package:aquaria_mobile/screens/splash/splash_screen.dart';
 import 'package:aquaria_mobile/utils/context_helper.dart';
 import 'package:aquaria_mobile/utils/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(
     MultiProvider(
       providers: [

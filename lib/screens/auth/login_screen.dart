@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:aquaria_mobile/providers/auth_provider.dart';
+import 'package:aquaria_mobile/screens/auth/register_screen.dart';
 import 'package:aquaria_mobile/utils/color_constants.dart';
 import 'package:aquaria_mobile/utils/size_config.dart';
 import 'package:aquaria_mobile/widgets/common_button.dart';
 import 'package:aquaria_mobile/widgets/common_input_field.dart';
 import 'package:aquaria_mobile/widgets/custom_background_container.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +21,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var size = SizeConfig();
+
+  @override
+  void initState() {
+    Provider.of<AuthProvider>(context, listen: false).loadCommonData(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomBackGroundContainer(
@@ -36,10 +47,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/images/logo2.jpeg',
-                          width: size.getPropotionateWidth(200),
-                          height: size.getPropotionateWidth(200),
+                        Hero(
+                          tag: 'logo',
+                          child: Image.asset(
+                            'assets/images/logo2.jpeg',
+                            width: size.getPropotionateWidth(200),
+                            height: size.getPropotionateWidth(200),
+                          ),
                         )
                       ],
                     ),
@@ -86,18 +100,45 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: auth.getPasswordController,
                       obscureText: true,
                     ),
+
                     // SizedBox(
                     //     // height: size.getPropotionateHeight(5),
                     //     ),
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        // color: Colors.white,
-                        fontSize: 12,
-
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.underline,
-                      ),
+                    Row(
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: "Don't have an account ?   ",
+                            style: TextStyle(
+                              // color: Colors.white,
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "Sign Up",
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) => const RegisterScreen(),
+                                      ),
+                                    );
+                                  },
+                                style: TextStyle(
+                                  // color: Colors.white,
+                                  fontSize: 12,
+                                  color: Color(0xFF0199FE),
+                                  fontWeight: FontWeight.w400,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: size.getPropotionateHeight(41),
@@ -116,12 +157,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             btnTxt: "Login",
                             onTap: () {
                               auth.performMainLogin(context);
-                              //   Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute<void>(
-                              //     builder: (BuildContext context) => const HomeScreen(),
-                              //   ),
-                              // )
                             },
                           )
                   ],

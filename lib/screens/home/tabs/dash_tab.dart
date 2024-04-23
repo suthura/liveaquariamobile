@@ -98,6 +98,10 @@ class _DashboardTabState extends State<DashboardTab> {
           height: 30,
         ),
         Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(.6),
+            borderRadius: BorderRadius.circular(12),
+          ),
           width: MediaQuery.of(context).size.width * .9,
           height: MediaQuery.of(context).size.height * .6,
           child: SfCircularChart(
@@ -105,66 +109,89 @@ class _DashboardTabState extends State<DashboardTab> {
               position: LegendPosition.bottom,
               isVisible: true,
               overflowMode: LegendItemOverflowMode.wrap,
-              legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
-                return SizedBox(
-                  // height: 100,
-                  width: 150,
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                          height: 75,
-                          width: 65,
-                          child: SfCircularChart(
-                            annotations: <CircularChartAnnotation>[
-                              _annotationSources![index],
-                            ],
-                            series: <RadialBarSeries<ChartSampleData, String>>[
-                              RadialBarSeries<ChartSampleData, String>(
-                                  animationDuration: 0,
-                                  dataSource: <ChartSampleData>[dataSources![index]],
-                                  maximumValue: 100,
-                                  radius: '100%',
-                                  cornerStyle: CornerStyle.bothCurve,
-                                  xValueMapper: (ChartSampleData data, _) => point.x as String,
-                                  yValueMapper: (ChartSampleData data, _) => data.y,
-                                  pointColorMapper: (ChartSampleData data, _) => data.pointColor,
-                                  innerRadius: '70%',
-                                  pointRadiusMapper: (ChartSampleData data, _) => data.text),
-                            ],
-                          )),
-                      SizedBox(
-                          width: 72,
-                          child: Text(
-                            point.x,
-                            style: TextStyle(color: colors![index], fontWeight: FontWeight.bold),
-                          )),
-                    ],
-                  ),
-                );
-              },
+              // legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
+              //   return SizedBox(
+              //     // height: 100,
+              //     width: 150,
+              //     child: Row(
+              //       children: <Widget>[
+              //         SizedBox(
+              //             height: 75,
+              //             width: 65,
+              //             child: SfCircularChart(
+              //               annotations: <CircularChartAnnotation>[
+              //                 _annotationSources![index],
+              //               ],
+              //               series: <PieSeries<ChartSampleData, String>>[
+              //                 PieSeries<ChartSampleData, String>(
+              //                     animationDuration: 0,
+              //                     dataSource: <ChartSampleData>[dataSources![index]],
+              //                     xValueMapper: (ChartSampleData data, _) => point.x as String,
+              //                     yValueMapper: (ChartSampleData data, _) => data.y,
+              //                     pointColorMapper: (ChartSampleData data, _) => data.pointColor,
+              //                     pointRadiusMapper: (ChartSampleData data, _) => data.text),
+              //               ],
+              //             )),
+              //         SizedBox(
+              //             width: 72,
+              //             child: Text(
+              //               point.x,
+              //               style: TextStyle(color: colors![index], fontWeight: FontWeight.bold),
+              //             )),
+              //       ],
+              //     ),
+              //   );
+              // },
             ),
             series: <CircularSeries>[
-              // Renders radial bar chart
-              RadialBarSeries<ChartSampleData, String>(
-                animationDuration: 0,
-                maximumValue: 100,
-                gap: '10%',
-                radius: '100%',
+              PieSeries<ChartSampleData, String>(
+                explode: true,
+                dataLabelMapper: (datum, index) {
+                  return datum.y.toStringAsFixed(0);
+                },
+                dataLabelSettings: DataLabelSettings(
+                  margin: EdgeInsets.zero,
+                  isVisible: true,
+                  textStyle: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                  labelPosition: ChartDataLabelPosition.outside,
+                  connectorLineSettings: const ConnectorLineSettings(
+                    type: ConnectorType.curve,
+                    length: '10%',
+                  ),
+                ),
                 dataSource: <ChartSampleData>[
-                  ChartSampleData(x: 'Pending', y: 62.70, text: '30%', pointColor: const Color.fromRGBO(69, 186, 161, 1.0)),
-                  ChartSampleData(x: 'Approved', y: 29.20, text: '50%', pointColor: const Color.fromRGBO(230, 135, 111, 1.0)),
-                  ChartSampleData(x: 'Rejected', y: 85.20, text: '20%', pointColor: const Color.fromRGBO(145, 132, 202, 1.0))
+                  ChartSampleData(x: 'Approved', y: 4, text: '30%', pointColor: Color.fromARGB(255, 161, 186, 69)),
+                  ChartSampleData(x: 'Pending', y: 8, text: '50%', pointColor: const Color.fromRGBO(230, 135, 111, 1.0)),
+                  ChartSampleData(x: 'Rejected', y: 2, text: '10%', pointColor: Color.fromARGB(255, 173, 62, 47)),
                 ],
-                cornerStyle: CornerStyle.bothCurve,
-                xValueMapper: (ChartSampleData data, _) => data.x as String,
-                yValueMapper: (ChartSampleData data, _) => data.y,
-                pointRadiusMapper: (ChartSampleData data, _) => data.text,
-
-                /// Color mapper for each bar in radial bar series,
-                /// which is get from datasource.
                 pointColorMapper: (ChartSampleData data, _) => data.pointColor,
-                legendIconType: LegendIconType.circle,
+                xValueMapper: (ChartSampleData data, _) => data.x,
+                yValueMapper: (ChartSampleData data, _) => data.y,
               )
+              // Renders radial bar chart
+              // PieSeries<ChartSampleData, String>(
+              //   animationDuration: 0,
+              //   // maximumValue: 100,
+              //   // gap: '10%',
+              //   // radius: '100%',
+              //   dataSource: <ChartSampleData>[
+              //     ChartSampleData(x: 'Pending', y: 62.70, text: '30%', pointColor: const Color.fromRGBO(69, 186, 161, 1.0)),
+              //     ChartSampleData(x: 'Approved', y: 29.20, text: '50%', pointColor: const Color.fromRGBO(230, 135, 111, 1.0)),
+              //     ChartSampleData(x: 'Rejected', y: 85.20, text: '20%', pointColor: const Color.fromRGBO(145, 132, 202, 1.0))
+              //   ],
+              //   // cornerStyle: CornerStyle.bothCurve,
+              //   xValueMapper: (ChartSampleData data, _) => data.x as String,
+              //   yValueMapper: (ChartSampleData data, _) => data.y,
+              //   pointRadiusMapper: (ChartSampleData data, _) => data.text,
+
+              //   /// Color mapper for each bar in radial bar series,
+              //   /// which is get from datasource.
+              //   pointColorMapper: (ChartSampleData data, _) => data.pointColor,
+              //   legendIconType: LegendIconType.circle,
+              // )
             ],
           ),
         )

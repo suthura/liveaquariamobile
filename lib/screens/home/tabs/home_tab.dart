@@ -242,8 +242,8 @@ class _HomeTabState extends State<HomeTab> {
                                       height: size.getPropotionateHeight(120),
                                       fit: BoxFit.cover,
                                       imageUrl: loadedItems.loadedMainItems!.data![index].images![0],
-                                      progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(
-                                        value: downloadProgress.progress,
+                                      progressIndicatorBuilder: (context, url, downloadProgress) => CupertinoActivityIndicator(
+                                        // value: downloadProgress.progress,
                                         color: kTxtWhite,
                                       ),
                                       errorWidget: (context, url, error) => Icon(
@@ -291,6 +291,7 @@ class _HomeTabState extends State<HomeTab> {
                                           style: TextStyle(
                                             color: Colors.grey,
                                             // fontWeight: FontWeight.,
+                                            fontSize: 10,
                                           ),
                                           textAlign: TextAlign.justify,
                                         ),

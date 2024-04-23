@@ -289,6 +289,7 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                                           style: TextStyle(
                                             color: Colors.grey,
                                             // fontWeight: FontWeight.,
+                                            fontSize: 10,
                                           ),
                                           textAlign: TextAlign.justify,
                                         ),

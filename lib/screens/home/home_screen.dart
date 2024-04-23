@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: "Status",
                 ),
               ],
-              if (auth.getloggedinUser!.data!.role == "user" || auth.getloggedinUser!.data!.role == "sub_user") ...[
+              if (auth.getloggedinUser!.data!.role == "customer" || auth.getloggedinUser!.data!.role == "sub_customer") ...[
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(Icons.list_alt_outlined),
                   label: "My Orders",
                 ),
-                if (auth.getloggedinUser!.data!.role != "sub_user") ...[
+                if (auth.getloggedinUser!.data!.role != "sub_customer") ...[
                   const BottomNavigationBarItem(
                     icon: Icon(Icons.list),
                     label: "Sub Orders",
@@ -103,11 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
               // Container(),
               RequestsTab(),
             ],
-            if (auth.getloggedinUser!.data!.role == "user" || auth.getloggedinUser!.data!.role == "sub_user") ...[
+            if (auth.getloggedinUser!.data!.role == "customer" || auth.getloggedinUser!.data!.role == "sub_customer") ...[
               // HomeTab(),
               HomeAdvTab(),
               OrderRequestsTab(isSubUser: false),
-              if (auth.getloggedinUser!.data!.role != "sub_user") ...[
+              if (auth.getloggedinUser!.data!.role != "sub_customer") ...[
                 SubOrderRequestsTab(
                   isSubUser: true,
                 ),

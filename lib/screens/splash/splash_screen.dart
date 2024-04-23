@@ -11,12 +11,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3)).then((value) => Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => const LoginScreen(),
-          ),
-        ));
+    Future.delayed(Duration(seconds: 3)).then((value) {
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          transitionDuration: Duration(seconds: 2),
+          pageBuilder: (_, __, ___) => LoginScreen(),
+        ),
+      );
+    });
     super.initState();
   }
 
@@ -27,7 +30,13 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Container(
           color: Colors.white,
           alignment: Alignment.center,
-          child: Image.asset('assets/images/logo.png'),
+          child: Hero(
+            tag: 'logo',
+            child: Image.asset(
+              'assets/images/logo2.jpeg',
+              width: MediaQuery.of(context).size.width / 2,
+            ),
+          ),
         ),
       ),
     );
