@@ -584,78 +584,82 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                                             ],
                                           ),
                                         ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                Alert(
-                                                  context: context,
-                                                  content: Consumer<ItemOrderProvider>(
-                                                    builder: (context, itmO, child) {
-                                                      return Column(
-                                                        children: [
-                                                          CommonInputField(
-                                                            controller: itmO.getlikedislikenoteController,
-                                                            hint: "Note",
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          CommonButton(
-                                                            size: size,
-                                                            btnTxt: 'Like',
-                                                            onTap: () {
-                                                              itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: 1);
-                                                            },
-                                                          ),
-                                                        ],
-                                                      );
+                                        loadedItems.getprocessingLikeDislikes.contains(loadedItems.getloadedadslist!.data![index].id)
+                                            ? CupertinoActivityIndicator()
+                                            : Row(
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Alert(
+                                                        context: context,
+                                                        content: Consumer<ItemOrderProvider>(
+                                                          builder: (context, itmO, child) {
+                                                            return Column(
+                                                              children: [
+                                                                CommonInputField(
+                                                                  controller: itmO.getlikedislikenoteController,
+                                                                  hint: "Note",
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                CommonButton(
+                                                                  size: size,
+                                                                  btnTxt: 'Like',
+                                                                  onTap: () {
+                                                                    itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: 1);
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                        buttons: [],
+                                                      ).show();
                                                     },
+                                                    icon: Icon(
+                                                      Icons.thumb_up_outlined,
+                                                      color: loadedItems.getloadedadslist!.data![index].isLiked == 1 ? Colors.blue : Colors.grey,
+                                                    ),
                                                   ),
-                                                  buttons: [],
-                                                ).show();
-                                              },
-                                              icon: Icon(
-                                                Icons.thumb_up_outlined,
-                                                color: loadedItems.getloadedadslist!.data![index].isLiked == 1 ? Colors.blue : Colors.grey,
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                Alert(
-                                                  context: context,
-                                                  content: Consumer<ItemOrderProvider>(
-                                                    builder: (context, itmO, child) {
-                                                      return Column(
-                                                        children: [
-                                                          CommonInputField(
-                                                            controller: itmO.getlikedislikenoteController,
-                                                            hint: "Note",
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          CommonButton(
-                                                            size: size,
-                                                            btnTxt: 'Unlike',
-                                                            onTap: () {
-                                                              itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: -1);
-                                                            },
-                                                          ),
-                                                        ],
-                                                      );
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Alert(
+                                                        context: context,
+                                                        content: Consumer<ItemOrderProvider>(
+                                                          builder: (context, itmO, child) {
+                                                            return Column(
+                                                              children: [
+                                                                CommonInputField(
+                                                                  controller: itmO.getlikedislikenoteController,
+                                                                  hint: "Note",
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                CommonButton(
+                                                                  size: size,
+                                                                  btnTxt: 'Unlike',
+                                                                  onTap: () {
+                                                                    itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: -1);
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                        buttons: [],
+                                                      ).show();
                                                     },
-                                                  ),
-                                                  buttons: [],
-                                                ).show();
-                                              },
-                                              icon: Icon(
-                                                Icons.thumb_down_outlined,
-                                                color: loadedItems.getloadedadslist!.data![index].isLiked == -1 ? Colors.blue : Colors.grey,
-                                              ),
-                                            )
-                                          ],
-                                        )
+                                                    icon: Icon(
+                                                      Icons.thumb_down_outlined,
+                                                      color: loadedItems.getloadedadslist!.data![index].isLiked == -1 ? Colors.blue : Colors.grey,
+                                                    ),
+                                                  )
+                                                ],
+                                              )
                                       ],
                                     ),
                                   ),

@@ -405,12 +405,25 @@ class ItemOrderProvider extends ChangeNotifier {
     }
   }
 
+  List<int> processingLikeDislikes = [];
+  List<int> get getprocessingLikeDislikes => processingLikeDislikes;
+  addprocessingLikeDislikes(val) {
+    processingLikeDislikes.add(val);
+    notifyListeners();
+  }
+
+  removeprocessingLikeDislikes(val) {
+    processingLikeDislikes.remove(val);
+    notifyListeners();
+  }
+
   TextEditingController likedislikenoteController = TextEditingController();
   TextEditingController get getlikedislikenoteController => likedislikenoteController;
 
   Future<void> sendlikeDislike(context, {required int id, required int vote}) async {
     try {
       // setisLoadingItems(true);
+      addprocessingLikeDislikes(id);
 
       // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
 
@@ -434,6 +447,8 @@ class ItemOrderProvider extends ChangeNotifier {
     } catch (e) {
       dev.log(e.toString());
     } finally {
+      likedislikenoteController.clear();
+      removeprocessingLikeDislikes(id);
       setisLoadingItems(false);
     }
   }

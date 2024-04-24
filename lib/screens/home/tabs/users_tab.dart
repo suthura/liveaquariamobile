@@ -4,6 +4,7 @@ import 'package:aquaria_mobile/screens/home/add_user_screen.dart';
 import 'package:aquaria_mobile/utils/color_constants.dart';
 import 'package:aquaria_mobile/utils/size_config.dart';
 import 'package:aquaria_mobile/widgets/common_button.dart';
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -77,6 +78,7 @@ class _UsersTabState extends State<UsersTab> {
           ),
 
           // Expanded(child: Container())
+
           Expanded(
             child: Container(
               padding: EdgeInsets.all(20),
@@ -85,6 +87,26 @@ class _UsersTabState extends State<UsersTab> {
                   if (value.getisLoadingSubUsers) {
                     return CupertinoActivityIndicator(
                       color: kTxtWhite,
+                    );
+                  }
+                  if (value.getloadedSubUser!.data!.isEmpty) {
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width * .75,
+                      child: EmptyWidget(
+                        image: null,
+                        packageImage: PackageImage.Image_3,
+                        title: 'No Users',
+                        // subTitle: 'Try Changing Filters',
+                        titleTextStyle: TextStyle(
+                          fontSize: 22,
+                          color: Color(0xff9da9c7),
+                          fontWeight: FontWeight.w500,
+                        ),
+                        subtitleTextStyle: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xffabb8d6),
+                        ),
+                      ),
                     );
                   }
                   return ListView.separated(
