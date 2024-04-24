@@ -183,19 +183,19 @@ class _HomeTabState extends State<HomeTab> {
               SizedBox(
                 height: size.getPropotionateHeight(5),
               ),
-              Row(
-                children: [
-                  Text(
-                    'Recently added items.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text(
+              //       'Recently added items.',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.w400,
+              //       ),
+              //       textAlign: TextAlign.left,
+              //     ),
+              //   ],
+              // ),
               SizedBox(
                 height: size.getPropotionateHeight(17),
               ),

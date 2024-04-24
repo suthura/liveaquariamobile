@@ -52,11 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             type: BottomNavigationBarType.fixed,
             items: [
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard),
-                label: "Dashboard",
-              ),
               if (auth.getloggedinUser!.data!.role == "Supplier") ...[
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard),
+                  label: "Dashboard",
+                ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
@@ -97,8 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           child: [
-            DashboardTab(),
             if (auth.getloggedinUser!.data!.role == "Supplier") ...[
+              DashboardTab(),
               HomeTab(),
               // Container(),
               RequestsTab(),

@@ -60,55 +60,101 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                   SizedBox(
                     height: size.getPropotionateHeight(18),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
-                        ),
-                        child: Text(
-                          'Code: ${widget.item.code}',
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0E52A8),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Specifications',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
+                            color: kTxtWhite,
+                            fontSize: size.getTextSize(14),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Code:'),
+                            Text('${widget.item.code}'),
+                          ],
                         ),
-                        child: Text(
-                          'Scientific: ${widget.item.scientificName}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Common Name:'),
+                            Text('${widget.item.commonName}'),
+                          ],
                         ),
-                      ),
-                    ],
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Scientific Name:'),
+                            Text('${widget.item.scientificName}'),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Description:'),
+                            Text('${widget.item.description ?? "n/a"}'),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     Container(
+                  //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(12),
+                  //         gradient: LinearGradient(
+                  //           begin: Alignment.topCenter,
+                  //           end: Alignment.bottomRight,
+                  //           colors: [
+                  //             Colors.white.withOpacity(0.25),
+                  //             Colors.white.withOpacity(0.15),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       child: Text(
+                  //         'Code: ${widget.item.code}',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Container(
+                  //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  //       decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(12),
+                  //         gradient: LinearGradient(
+                  //           begin: Alignment.topCenter,
+                  //           end: Alignment.bottomRight,
+                  //           colors: [
+                  //             Colors.white.withOpacity(0.25),
+                  //             Colors.white.withOpacity(0.15),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       child: Text(
+                  //         'Scientific: ${widget.item.scientificName}',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(
                     height: size.getPropotionateHeight(14),
                   ),
@@ -122,61 +168,68 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                   SizedBox(
                     height: size.getPropotionateHeight(14),
                   ),
-                  SizedBox(
-                    height: size.getPropotionateWidth(80),
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                        return Container(
-                          width: 10,
-                        );
-                      },
-                      itemCount: widget.item.images!.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            PopupBanner(
-                              context: context,
-                              fit: BoxFit.contain,
-                              height: MediaQuery.of(context).size.width,
-                              images: widget.item.images!,
-                              dotsAlignment: Alignment.bottomCenter,
-                              dotsColorActive: Colors.blue,
-                              dotsColorInactive: Colors.grey.withOpacity(0.5),
-                              onClick: (index) {
-                                debugPrint("CLICKED $index");
-                              },
-                            ).show();
-                          },
-                          child: Container(
-                            width: size.getPropotionateWidth(92),
-                            height: size.getPropotionateWidth(80),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Colors.white.withOpacity(0.25),
-                                  Colors.white.withOpacity(0.15),
-                                ],
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12.0),
-                              child: Image.network(
-                                widget.item.images![index].replaceAll('parttime247', 'h2bis'),
-                                errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                                  return const Center(child: Text('This image type is not supported'));
-                                },
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+                  if (widget.item.images!.isEmpty)
+                    const Text(
+                      'No Images',
+                      style: TextStyle(color: Colors.grey),
                     ),
-                  ),
+
+                  if (widget.item.images!.isNotEmpty)
+                    SizedBox(
+                      height: size.getPropotionateWidth(80),
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return Container(
+                            width: 10,
+                          );
+                        },
+                        itemCount: widget.item.images!.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              PopupBanner(
+                                context: context,
+                                fit: BoxFit.contain,
+                                height: MediaQuery.of(context).size.width,
+                                images: widget.item.images!,
+                                dotsAlignment: Alignment.bottomCenter,
+                                dotsColorActive: Colors.blue,
+                                dotsColorInactive: Colors.grey.withOpacity(0.5),
+                                onClick: (index) {
+                                  debugPrint("CLICKED $index");
+                                },
+                              ).show();
+                            },
+                            child: Container(
+                              width: size.getPropotionateWidth(92),
+                              height: size.getPropotionateWidth(80),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12.0),
+                                child: Image.network(
+                                  widget.item.images![index].replaceAll('parttime247', 'h2bis'),
+                                  errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                    return const Center(child: Text('This image type is not supported'));
+                                  },
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   SizedBox(
                     height: size.getPropotionateHeight(14),
                   ),
@@ -265,16 +318,16 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                   SizedBox(
                     height: size.getPropotionateHeight(14),
                   ),
-                  Text(
-                    'Specifications',
-                    style: TextStyle(
-                      color: kTxtWhite,
-                      fontSize: size.getTextSize(14),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.getPropotionateHeight(14),
-                  ),
+                  // Text(
+                  //   'Specifications',
+                  //   style: TextStyle(
+                  //     color: kTxtWhite,
+                  //     fontSize: size.getTextSize(14),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: size.getPropotionateHeight(14),
+                  // ),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   //   children: [

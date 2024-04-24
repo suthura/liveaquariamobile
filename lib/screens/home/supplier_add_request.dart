@@ -152,7 +152,7 @@ class _SupplierAddRequestState extends State<SupplierAddRequest> {
                             },
                             // selectedItem: auth.getloadedCommonData!.countries!.first,
                             onChanged: (value) {
-                              itemOrd.setselectedCountry(value);
+                              itemOrd.setselectedFilterCountry(value);
                               log(value!.toJson().toString());
                             },
                           );

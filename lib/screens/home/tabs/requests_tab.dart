@@ -1,9 +1,7 @@
 import 'package:aquaria_mobile/models/sup_req_model.dart';
-import 'package:aquaria_mobile/providers/auth_provider.dart';
 import 'package:aquaria_mobile/providers/item_order_provider.dart';
 import 'package:aquaria_mobile/screens/home/past_single_suplier_request.dart';
 import 'package:aquaria_mobile/utils/size_config.dart';
-import 'package:aquaria_mobile/widgets/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

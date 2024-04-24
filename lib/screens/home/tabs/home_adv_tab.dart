@@ -1,4 +1,5 @@
 import 'package:aquaria_mobile/models/advertisement_model.dart';
+import 'package:aquaria_mobile/models/common_data_model.dart';
 import 'package:aquaria_mobile/providers/auth_provider.dart';
 import 'package:aquaria_mobile/providers/item_order_provider.dart';
 import 'package:aquaria_mobile/screens/home/favorites.dart';
@@ -9,6 +10,8 @@ import 'package:aquaria_mobile/widgets/common_button.dart';
 import 'package:aquaria_mobile/widgets/common_input_field.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -33,7 +36,7 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
     super.initState();
   }
 
-  SingleAvertisement? selectedValue;
+  // SingleAvertisement? selectedValue;
   final TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -103,11 +106,17 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                                     ),
                                   ))
                               .toList(),
-                          value: selectedValue,
+                          // value: selectedValue,
                           onChanged: (value) {
                             setState(() {
-                              selectedValue = value;
+                              // selectedValue = value;
                             });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => SingleUserRequest(item: value!),
+                              ),
+                            );
                           },
                           buttonStyleData: const ButtonStyleData(
                             padding: EdgeInsets.only(right: 7, left: 20),
@@ -179,6 +188,235 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                       color: Colors.red,
                     ),
                   ),
+                  IconButton(
+                    onPressed: () {
+                      Alert(
+                        context: context,
+                        buttons: [],
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Filter",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Country',
+                              style: TextStyle(
+                                fontSize: size.getTextSize(16),
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            Consumer2<AuthProvider, ItemOrderProvider>(
+                              builder: (context, auth, itemOrd, child) {
+                                return DropdownSearch<Countries>(
+                                  filterFn: (item, filter) {
+                                    return item.name!.toLowerCase().contains(filter.toLowerCase());
+                                  },
+                                  popupProps: const PopupProps.menu(
+                                    showSearchBox: true,
+                                  ),
+                                  items: auth.getloadedCommonData!.countries!,
+                                  dropdownDecoratorProps: DropDownDecoratorProps(
+                                    baseStyle: TextStyle(fontSize: 12),
+                                    dropdownSearchDecoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  clearButtonProps: ClearButtonProps(
+                                    isVisible: true,
+                                    onPressed: () {
+                                      itemOrd.setselectedFilterCountry(null);
+                                    },
+                                  ),
+                                  itemAsString: (item) {
+                                    return item.name!;
+                                  },
+                                  selectedItem: itemOrd.getselectedFilterCountry,
+                                  onChanged: (value) {
+                                    itemOrd.setselectedFilterCountry(value);
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            Text(
+                              'Color',
+                              style: TextStyle(
+                                fontSize: size.getTextSize(16),
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            Consumer2<AuthProvider, ItemOrderProvider>(
+                              builder: (context, auth, itemOrd, child) {
+                                return DropdownSearch<FishColors>(
+                                  filterFn: (item, filter) {
+                                    return item.name!.toLowerCase().contains(filter.toLowerCase());
+                                  },
+                                  popupProps: const PopupProps.menu(
+                                    showSearchBox: true,
+                                  ),
+                                  items: auth.getloadedCommonData!.colors!,
+                                  dropdownDecoratorProps: DropDownDecoratorProps(
+                                    baseStyle: TextStyle(fontSize: 12),
+                                    dropdownSearchDecoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  clearButtonProps: ClearButtonProps(
+                                    isVisible: true,
+                                    onPressed: () {
+                                      itemOrd.setselectedFilterFishColor(null);
+                                    },
+                                  ),
+                                  itemAsString: (item) {
+                                    return item.name!;
+                                  },
+                                  selectedItem: itemOrd.getselectedFilterFishColor,
+                                  onChanged: (value) {
+                                    itemOrd.setselectedFilterFishColor(value);
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            Text(
+                              'Tail Type',
+                              style: TextStyle(
+                                fontSize: size.getTextSize(16),
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            Consumer2<AuthProvider, ItemOrderProvider>(
+                              builder: (context, auth, itemOrd, child) {
+                                return DropdownSearch<TailTypes>(
+                                  filterFn: (item, filter) {
+                                    return item.name!.toLowerCase().contains(filter.toLowerCase());
+                                  },
+                                  popupProps: const PopupProps.menu(
+                                    showSearchBox: true,
+                                  ),
+                                  items: auth.getloadedCommonData!.tailTypes!,
+                                  dropdownDecoratorProps: DropDownDecoratorProps(
+                                    baseStyle: TextStyle(fontSize: 12),
+                                    dropdownSearchDecoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  clearButtonProps: ClearButtonProps(
+                                    isVisible: true,
+                                    onPressed: () {
+                                      itemOrd.setSelectedFilterTailType(null);
+                                    },
+                                  ),
+                                  itemAsString: (item) {
+                                    return item.name!;
+                                  },
+                                  selectedItem: itemOrd.getselectedFilterTailType,
+                                  onChanged: (value) {
+                                    itemOrd.setSelectedFilterTailType(value);
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            Text(
+                              'Fin Type',
+                              style: TextStyle(
+                                fontSize: size.getTextSize(16),
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            Consumer2<AuthProvider, ItemOrderProvider>(
+                              builder: (context, auth, itemOrd, child) {
+                                return DropdownSearch<FinTypes>(
+                                  filterFn: (item, filter) {
+                                    return item.name!.toLowerCase().contains(filter.toLowerCase());
+                                  },
+                                  popupProps: const PopupProps.menu(
+                                    showSearchBox: true,
+                                  ),
+                                  items: auth.getloadedCommonData!.finTypes!,
+                                  dropdownDecoratorProps: DropDownDecoratorProps(
+                                    baseStyle: TextStyle(fontSize: 12),
+                                    dropdownSearchDecoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  clearButtonProps: ClearButtonProps(
+                                    isVisible: true,
+                                    onPressed: () {
+                                      itemOrd.setSelectedFilterFinType(null);
+                                    },
+                                  ),
+                                  itemAsString: (item) {
+                                    return item.name!;
+                                  },
+                                  selectedItem: itemOrd.getselectedFilterFinType,
+                                  onChanged: (value) {
+                                    itemOrd.setSelectedFilterFinType(value);
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              height: size.getPropotionateHeight(7),
+                            ),
+                            CommonButton(
+                              size: size,
+                              btnTxt: 'Show Results',
+                              onTap: () {
+                                loadedItems.loadAdvertisements(context);
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                      ).show();
+                    },
+                    icon: Icon(
+                      Icons.filter_list_alt,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
@@ -191,223 +429,242 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                 height: size.getPropotionateHeight(17),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: loadedItems.getloadedadslist!.data!.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => SingleUserRequest(item: loadedItems.getloadedadslist!.data![index]),
+                child: loadedItems.getloadedadslist!.data!.isEmpty
+                    ? SizedBox(
+                        width: MediaQuery.of(context).size.width * .75,
+                        child: EmptyWidget(
+                          image: null,
+                          packageImage: PackageImage.Image_3,
+                          title: 'No Data',
+                          subTitle: 'Try Changing Filters',
+                          titleTextStyle: TextStyle(
+                            fontSize: 22,
+                            color: Color(0xff9da9c7),
+                            fontWeight: FontWeight.w500,
                           ),
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: const Offset(0, -3),
-                            ),
-                          ],
+                          subtitleTextStyle: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xffabb8d6),
+                          ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              child: Stack(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                    ),
-                                    child: loadedItems.getloadedadslist!.data![index].images!.isEmpty
-                                        ? Image.asset(
-                                            'assets/images/fish.png',
-                                            // width: MediaQuery.of(context).size.width * .4,
-                                            width: double.infinity,
-                                            height: size.getPropotionateHeight(120),
-                                            fit: BoxFit.cover,
-                                          )
-                                        : CachedNetworkImage(
-                                            // width: MediaQuery.of(context).size.width * .4,
-                                            width: double.infinity,
-                                            height: size.getPropotionateHeight(120),
-                                            fit: BoxFit.cover,
-                                            imageUrl: loadedItems.getloadedadslist!.data![index].images![0],
-                                            progressIndicatorBuilder: (context, url, downloadProgress) => const CupertinoActivityIndicator(
-                                              color: kTxtWhite,
-                                            ),
-                                            errorWidget: (context, url, error) => const Icon(
-                                              Icons.error,
-                                            ),
-                                          ),
+                      )
+                    : ListView.builder(
+                        itemCount: loadedItems.getloadedadslist!.data!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) => SingleUserRequest(item: loadedItems.getloadedadslist!.data![index]),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, -3),
                                   ),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: loadedItems.getprocecingFavId.contains(loadedItems.getloadedadslist!.data![index].id!)
-                                        ? CupertinoActivityIndicator()
-                                        : IconButton(
-                                            onPressed: () {
-                                              if (loadedItems.getloadedfavoriteslist!.data!
-                                                  .any((element) => element.id == loadedItems.getloadedadslist!.data![index].id)) {
-                                                loadedItems.removeFavorite(context, loadedItems.getloadedadslist!.data![index].id!);
-                                              } else {
-                                                loadedItems.addToFavorite(context, loadedItems.getloadedadslist!.data![index].id!);
-                                              }
-                                            },
-                                            icon: Icon(
-                                              Icons.favorite,
-                                              color: loadedItems.getloadedfavoriteslist!.data!
-                                                      .any((element) => element.id == loadedItems.getloadedadslist!.data![index].id)
-                                                  ? Colors.red
-                                                  : Colors.white,
-                                            ),
-                                          ),
-                                  )
                                 ],
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                  Container(
+                                    width: double.infinity,
+                                    child: Stack(
                                       children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context).size.width * .4,
-                                          child: Text(
-                                            '${loadedItems.getloadedadslist!.data![index].item!.commonName}',
-                                            style: const TextStyle(
-                                              color: Color(0xFF0E52A8),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
-                                            textAlign: TextAlign.left,
+                                        ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            topRight: Radius.circular(15),
                                           ),
+                                          child: loadedItems.getloadedadslist!.data![index].images!.isEmpty
+                                              ? Image.asset(
+                                                  'assets/images/fish.png',
+                                                  // width: MediaQuery.of(context).size.width * .4,
+                                                  width: double.infinity,
+                                                  height: size.getPropotionateHeight(120),
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : CachedNetworkImage(
+                                                  // width: MediaQuery.of(context).size.width * .4,
+                                                  width: double.infinity,
+                                                  height: size.getPropotionateHeight(120),
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: loadedItems.getloadedadslist!.data![index].images![0],
+                                                  progressIndicatorBuilder: (context, url, downloadProgress) => const CupertinoActivityIndicator(
+                                                    color: kTxtWhite,
+                                                  ),
+                                                  errorWidget: (context, url, error) => const Icon(
+                                                    Icons.error,
+                                                  ),
+                                                ),
                                         ),
-                                        // const SizedBox(
-                                        //   height: 5,
-                                        // ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context).size.width * .4,
-                                          child: Text(
-                                            '${loadedItems.getloadedadslist!.data![index].item!.code}',
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                        // const SizedBox(
-                                        //   height: 10,
-                                        // ),
-                                        if (loadedItems.getloadedadslist!.data![index].description != null)
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width * .4,
-                                            child: Text(
-                                              limitText('${loadedItems.getloadedadslist!.data![index].description}', 40),
-                                              style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 10,
-                                              ),
-                                              textAlign: TextAlign.justify,
-                                            ),
-                                          ),
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: loadedItems.getprocecingFavId.contains(loadedItems.getloadedadslist!.data![index].id!)
+                                              ? CupertinoActivityIndicator()
+                                              : IconButton(
+                                                  onPressed: () {
+                                                    if (loadedItems.getloadedfavoriteslist!.data!
+                                                        .any((element) => element.id == loadedItems.getloadedadslist!.data![index].id)) {
+                                                      loadedItems.removeFavorite(context, loadedItems.getloadedadslist!.data![index].id!);
+                                                    } else {
+                                                      loadedItems.addToFavorite(context, loadedItems.getloadedadslist!.data![index].id!);
+                                                    }
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.favorite,
+                                                    color: loadedItems.getloadedfavoriteslist!.data!
+                                                            .any((element) => element.id == loadedItems.getloadedadslist!.data![index].id)
+                                                        ? Colors.red
+                                                        : Colors.white,
+                                                  ),
+                                                ),
+                                        )
                                       ],
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          Alert(
-                                            context: context,
-                                            content: Consumer<ItemOrderProvider>(
-                                              builder: (context, itmO, child) {
-                                                return Column(
-                                                  children: [
-                                                    CommonInputField(
-                                                      controller: itmO.getlikedislikenoteController,
-                                                      hint: "Note",
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                width: MediaQuery.of(context).size.width * .4,
+                                                child: Text(
+                                                  '${loadedItems.getloadedadslist!.data![index].item!.commonName}',
+                                                  style: const TextStyle(
+                                                    color: Color(0xFF0E52A8),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+                                              // const SizedBox(
+                                              //   height: 5,
+                                              // ),
+                                              SizedBox(
+                                                width: MediaQuery.of(context).size.width * .4,
+                                                child: Text(
+                                                  '${loadedItems.getloadedadslist!.data![index].item!.code}',
+                                                  style: const TextStyle(
+                                                    color: Colors.grey,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+                                              // const SizedBox(
+                                              //   height: 10,
+                                              // ),
+                                              if (loadedItems.getloadedadslist!.data![index].description != null)
+                                                SizedBox(
+                                                  width: MediaQuery.of(context).size.width * .4,
+                                                  child: Text(
+                                                    limitText('${loadedItems.getloadedadslist!.data![index].description}', 40),
+                                                    style: const TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 10,
                                                     ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    CommonButton(
-                                                      size: size,
-                                                      btnTxt: 'Like',
-                                                      onTap: () {
-                                                        itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: 1);
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            ),
-                                            buttons: [],
-                                          ).show();
-                                        },
-                                        icon: Icon(
-                                          Icons.thumb_up_outlined,
-                                          color: loadedItems.getloadedadslist!.data![index].isLiked == 1 ? Colors.blue : Colors.grey,
+                                                    textAlign: TextAlign.justify,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          Alert(
-                                            context: context,
-                                            content: Consumer<ItemOrderProvider>(
-                                              builder: (context, itmO, child) {
-                                                return Column(
-                                                  children: [
-                                                    CommonInputField(
-                                                      controller: itmO.getlikedislikenoteController,
-                                                      hint: "Note",
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    CommonButton(
-                                                      size: size,
-                                                      btnTxt: 'Unlike',
-                                                      onTap: () {
-                                                        itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: -1);
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                Alert(
+                                                  context: context,
+                                                  content: Consumer<ItemOrderProvider>(
+                                                    builder: (context, itmO, child) {
+                                                      return Column(
+                                                        children: [
+                                                          CommonInputField(
+                                                            controller: itmO.getlikedislikenoteController,
+                                                            hint: "Note",
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          CommonButton(
+                                                            size: size,
+                                                            btnTxt: 'Like',
+                                                            onTap: () {
+                                                              itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: 1);
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ),
+                                                  buttons: [],
+                                                ).show();
                                               },
+                                              icon: Icon(
+                                                Icons.thumb_up_outlined,
+                                                color: loadedItems.getloadedadslist!.data![index].isLiked == 1 ? Colors.blue : Colors.grey,
+                                              ),
                                             ),
-                                            buttons: [],
-                                          ).show();
-                                        },
-                                        icon: Icon(
-                                          Icons.thumb_down_outlined,
-                                          color: loadedItems.getloadedadslist!.data![index].isLiked == -1 ? Colors.blue : Colors.grey,
-                                        ),
-                                      )
-                                    ],
-                                  )
+                                            IconButton(
+                                              onPressed: () {
+                                                Alert(
+                                                  context: context,
+                                                  content: Consumer<ItemOrderProvider>(
+                                                    builder: (context, itmO, child) {
+                                                      return Column(
+                                                        children: [
+                                                          CommonInputField(
+                                                            controller: itmO.getlikedislikenoteController,
+                                                            hint: "Note",
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          CommonButton(
+                                                            size: size,
+                                                            btnTxt: 'Unlike',
+                                                            onTap: () {
+                                                              itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: -1);
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  ),
+                                                  buttons: [],
+                                                ).show();
+                                              },
+                                              icon: Icon(
+                                                Icons.thumb_down_outlined,
+                                                color: loadedItems.getloadedadslist!.data![index].isLiked == -1 ? Colors.blue : Colors.grey,
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
               SizedBox(
                 height: size.getPropotionateHeight(17),

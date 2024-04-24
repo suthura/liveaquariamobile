@@ -253,12 +253,41 @@ class ItemOrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Countries? selectedFilterCountry;
+  Countries? get getselectedFilterCountry => selectedFilterCountry;
+  setselectedFilterCountry(val) {
+    selectedFilterCountry = val;
+    notifyListeners();
+  }
+
+  FishColors? selectedFilterFishColor;
+  FishColors? get getselectedFilterFishColor => selectedFilterFishColor;
+  setselectedFilterFishColor(val) {
+    selectedFilterFishColor = val;
+    notifyListeners();
+  }
+
+  FinTypes? selectedFilterFinType;
+  FinTypes? get getselectedFilterFinType => selectedFilterFinType;
+  setSelectedFilterFinType(val) {
+    selectedFilterFinType = val;
+    notifyListeners();
+  }
+
+  TailTypes? selectedFilterTailType;
+  TailTypes? get getselectedFilterTailType => selectedFilterTailType;
+  setSelectedFilterTailType(val) {
+    selectedFilterTailType = val;
+    notifyListeners();
+  }
+
   Future<void> loadAdvertisements(context) async {
     try {
       setisLoadingItems(true);
+      var filterUrl = "?country=${selectedFilterCountry == null ? '' : selectedFilterCountry!.id}&color=2&finType=2&tailType=2";
       // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
       final response = await CustomHttp.getDio().get(
-        kLoadAdvertisements,
+        kLoadAdvertisements + filterUrl,
       );
 
       var encoded = jsonEncode(response.data);

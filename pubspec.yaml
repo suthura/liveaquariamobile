@@ -24,6 +24,7 @@ dependencies:
   syncfusion_flutter_charts: 22.2.10
   image_cropper: ^5.0.1
   dropdown_search: ^5.0.6
+  empty_widget: ^0.0.5
 
 dev_dependencies:
   flutter_test:
