@@ -100,10 +100,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: auth.getPasswordController,
                       obscureText: true,
                     ),
-
-                    // SizedBox(
-                    //     // height: size.getPropotionateHeight(5),
-                    //     ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RadioListTile(
+                            title: const Text('Customer'),
+                            value: 'Customer',
+                            groupValue: auth.getselectedRole,
+                            onChanged: (value) {
+                              auth.setselectedRole(value);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: RadioListTile(
+                            title: const Text('Vendor'),
+                            value: 'Vendor',
+                            groupValue: auth.getselectedRole,
+                            onChanged: (value) {
+                              auth.setselectedRole(value);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.getPropotionateHeight(5),
+                    ),
                     Row(
                       children: [
                         RichText(

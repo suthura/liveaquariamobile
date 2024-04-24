@@ -181,19 +181,19 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
               SizedBox(
                 height: size.getPropotionateHeight(5),
               ),
-              const Row(
-                children: [
-                  Text(
-                    'Recently added items.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
+              // const Row(
+              //   children: [
+              //     Text(
+              //       'Items',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.w400,
+              //       ),
+              //       textAlign: TextAlign.left,
+              //     ),
+              //   ],
+              // ),
               SizedBox(
                 height: size.getPropotionateHeight(17),
               ),

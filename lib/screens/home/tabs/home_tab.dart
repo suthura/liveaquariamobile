@@ -241,7 +241,7 @@ class _HomeTabState extends State<HomeTab> {
                                       width: MediaQuery.of(context).size.width * .4,
                                       height: size.getPropotionateHeight(120),
                                       fit: BoxFit.cover,
-                                      imageUrl: loadedItems.loadedMainItems!.data![index].images![0],
+                                      imageUrl: loadedItems.loadedMainItems!.data![index].images![0].replaceAll('parttime247', 'h2bis'),
                                       progressIndicatorBuilder: (context, url, downloadProgress) => CupertinoActivityIndicator(
                                         // value: downloadProgress.progress,
                                         color: kTxtWhite,

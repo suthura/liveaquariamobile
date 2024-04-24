@@ -24,7 +24,7 @@ class CommonInputField extends StatelessWidget {
           ? null
           : validate
               ? null
-              : size.getPropotionateHeight(60),
+              : size.getPropotionateHeight(70),
       child: TextFormField(
         controller: controller,
         validator: (value) {

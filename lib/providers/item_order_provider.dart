@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aquaria_mobile/models/advertisement_model.dart';
+import 'package:aquaria_mobile/models/common_data_model.dart';
 import 'package:aquaria_mobile/models/main_item_model.dart';
 import 'package:aquaria_mobile/models/orders_model.dart';
 import 'package:aquaria_mobile/models/sup_req_model.dart';
@@ -60,11 +61,17 @@ class ItemOrderProvider extends ChangeNotifier {
   TextEditingController itmSizeController = TextEditingController();
   TextEditingController itmColorController = TextEditingController();
   TextEditingController itmDescriptionController = TextEditingController();
+  TextEditingController itemAgeController = TextEditingController();
+  TextEditingController itemSizeController = TextEditingController();
+  TextEditingController itemPriceController = TextEditingController();
 
   TextEditingController get itmWeightControllerGetter => itmWeightController;
   TextEditingController get itmSizeControllerGetter => itmSizeController;
   TextEditingController get itmColorControllerGetter => itmColorController;
   TextEditingController get itmDescriptionControllerGetter => itmDescriptionController;
+  TextEditingController get itemAgeControllerGetter => itemAgeController;
+  TextEditingController get itemSizeControllerGetter => itemSizeController;
+  TextEditingController get itemPriceControllerGetter => itemPriceController;
 
   bool isSavingRequest = false;
   bool get getisSavingRequest => isSavingRequest;
@@ -99,6 +106,41 @@ class ItemOrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Countries? selectedCountry;
+  Countries? get getselectedCountry => selectedCountry;
+  setselectedCountry(val) {
+    selectedCountry = val;
+    notifyListeners();
+  }
+
+  FishColors? selectedFishColor;
+  FishColors? get getselectedFishColor => selectedFishColor;
+  setselectedFishColor(val) {
+    selectedFishColor = val;
+    notifyListeners();
+  }
+
+  FinTypes? selectedFinType;
+  FinTypes? get getselectedFinType => selectedFinType;
+  setSelectedFinType(val) {
+    selectedFinType = val;
+    notifyListeners();
+  }
+
+  TailTypes? selectedTailType;
+  TailTypes? get getselectedTailType => selectedTailType;
+  setSelectedTailType(val) {
+    selectedTailType = val;
+    notifyListeners();
+  }
+
+  String selectedGender = 'Male';
+  String get getselectedGender => selectedGender;
+  setselectedGender(val) {
+    selectedGender = val;
+    notifyListeners();
+  }
+
   Future<void> saveSuplierRequest(context, {required SingleItem item}) async {
     try {
       setisSavingRequest(true);
@@ -113,6 +155,14 @@ class ItemOrderProvider extends ChangeNotifier {
             videoFile!.path,
           ),
         "item_id": item.id,
+        "country_id": getselectedCountry!.id,
+        "color_id": getselectedFishColor!.id,
+        "fin_type_id": getselectedFinType!.id,
+        "tail_type_id": getselectedTailType!.id,
+        "gender": getselectedGender,
+        "age": itemAgeController.text,
+        "size": itemSizeController.text,
+        "price": itemPriceController.text,
         "quantity": quantityController.text,
         "breeding_capacity": breedingCapacityController.text,
         "description": descriptionController.text,
@@ -242,7 +292,7 @@ class ItemOrderProvider extends ChangeNotifier {
 
       FormData formData = FormData.fromMap({
         "type": getselectedOrderType == "Sample" ? "sample_order" : "place_order",
-        "supplier_request_id": item.id,
+        "advertisement_id": item.id,
         "quantity": getselectedOrderType == "Sample" ? "1" : quantityController.text,
         "address": addressController.text,
       });
@@ -292,11 +342,12 @@ class ItemOrderProvider extends ChangeNotifier {
   Future<void> loadOrders(context, {bool isSubUser = false}) async {
     try {
       setisLoadingOrders(true);
+      setloadedOrdersList(null);
       var type = Provider.of<AuthProvider>(context, listen: false).getloggedinUser!.data!.role;
 
       String url = '';
       url = isSubUser ? kGetSUbOrder : kSaveOrder;
-      if (type == 'supplier') {
+      if (type == 'Supplier') {
         url = kSaveOrder;
       }
 
@@ -305,9 +356,8 @@ class ItemOrderProvider extends ChangeNotifier {
       final response = await CustomHttp.getDio().get(
         url,
       );
-
+      dev.log(response.data.toString());
       var encoded = jsonEncode(response.data);
-      // dev.log(response.data.toString());
 
       OrdersModel temp = OrdersModel.fromJson(jsonDecode(encoded));
 
@@ -335,10 +385,9 @@ class ItemOrderProvider extends ChangeNotifier {
     List<SingleOrder> temp = [];
     if (getloadedOrdersList != null) {
       for (var i = 0; i < getloadedOrdersList!.data!.length; i++) {
-        // dev.log("$i : ${getloadedOrdersList!.data![i].adminStatus} : $approval");
-        if (getloadedOrdersList!.data![i].adminStatus == approval) {
-          temp.add(getloadedOrdersList!.data![i]);
-        }
+        // if (getloadedOrdersList!.data![i].status == approval) {
+        temp.add(getloadedOrdersList!.data![i]);
+        // }
       }
     }
     return temp;

@@ -26,23 +26,17 @@ class SingleItem {
   String? code;
   String? commonName;
   String? scientificName;
-  String? origin;
-  String? color;
-  String? size;
   String? description;
   List<String>? images;
   List<String>? videos;
 
-  SingleItem({this.id, this.code, this.commonName, this.scientificName, this.origin, this.color, this.size, this.description, this.images, this.videos});
+  SingleItem({this.id, this.code, this.commonName, this.scientificName, this.description, this.images, this.videos});
 
   SingleItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     commonName = json['common_name'];
     scientificName = json['scientific_name'];
-    origin = json['origin'];
-    color = json['color'];
-    size = json['size'];
     description = json['description'];
     images = json['images'].cast<String>();
     videos = json['videos'].cast<String>();
@@ -54,9 +48,6 @@ class SingleItem {
     data['code'] = this.code;
     data['common_name'] = this.commonName;
     data['scientific_name'] = this.scientificName;
-    data['origin'] = this.origin;
-    data['color'] = this.color;
-    data['size'] = this.size;
     data['description'] = this.description;
     data['images'] = this.images;
     data['videos'] = this.videos;

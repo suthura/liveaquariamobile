@@ -344,27 +344,27 @@ class SupplierRequestCard extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            if (isFromApproved)
-              Consumer<AuthProvider>(
-                builder: (context, value, child) {
-                  if (value.getloggedinUser!.data!.role == "supplier") {
-                    return Container();
-                  }
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CommonButton(
-                        size: size,
-                        btnTxt: "Publish",
-                        width: size.getPropotionateWidth(120),
-                        height: size.getPropotionateHeight(40),
-                        bgColor: const Color(0xFFF8E328),
-                        txtColor: const Color(0xFF002E57),
-                      )
-                    ],
-                  );
-                },
-              )
+            // if (isFromApproved)
+            //   Consumer<AuthProvider>(
+            //     builder: (context, value, child) {
+            //       if (value.getloggedinUser!.data!.role == "Supplier") {
+            //         return Container();
+            //       }
+            //       return Row(
+            //         mainAxisAlignment: MainAxisAlignment.end,
+            //         children: [
+            //           CommonButton(
+            //             size: size,
+            //             btnTxt: "Publish",
+            //             width: size.getPropotionateWidth(120),
+            //             height: size.getPropotionateHeight(40),
+            //             bgColor: const Color(0xFFF8E328),
+            //             txtColor: const Color(0xFF002E57),
+            //           )
+            //         ],
+            //       );
+            //     },
+            //   )
           ],
         ),
       ),

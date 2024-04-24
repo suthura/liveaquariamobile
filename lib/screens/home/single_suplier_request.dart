@@ -165,7 +165,7 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12.0),
                               child: Image.network(
-                                widget.item.images![index],
+                                widget.item.images![index].replaceAll('parttime247', 'h2bis'),
                                 errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                                   return const Center(child: Text('This image type is not supported'));
                                 },
@@ -215,7 +215,7 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute<void>(
-                                  builder: (BuildContext context) => VideoPage(url: widget.item.videos![index]),
+                                  builder: (BuildContext context) => VideoPage(url: widget.item.videos![index].replaceAll('parttime247', 'h2bis')),
                                 ),
                               );
                             },
@@ -236,7 +236,7 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: FutureBuilder<Widget>(
-                                  future: getVideoThumbnail(widget.item.videos![index]),
+                                  future: getVideoThumbnail(widget.item.videos![index].replaceAll('parttime247', 'h2bis')),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState == ConnectionState.waiting) {
                                       return CupertinoActivityIndicator(
@@ -275,122 +275,122 @@ class _SingleSupplierRequestState extends State<SingleSupplierRequest> {
                   SizedBox(
                     height: size.getPropotionateHeight(14),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: size.getPropotionateWidth(92),
-                        height: size.getPropotionateWidth(80),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Origin',
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.800000011920929),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              '${widget.item.origin}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: size.getPropotionateWidth(92),
-                        height: size.getPropotionateWidth(80),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Size',
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.800000011920929),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              '${widget.item.size}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: size.getPropotionateWidth(92),
-                        height: size.getPropotionateWidth(80),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.25),
-                              Colors.white.withOpacity(0.15),
-                            ],
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Color',
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.800000011920929),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              '${widget.item.color}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.getPropotionateHeight(14),
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  // Container(
+                  //   width: size.getPropotionateWidth(92),
+                  //   height: size.getPropotionateWidth(80),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(12),
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.topCenter,
+                  //       end: Alignment.bottomRight,
+                  //       colors: [
+                  //         Colors.white.withOpacity(0.25),
+                  //         Colors.white.withOpacity(0.15),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       Text(
+                  //         'Origin',
+                  //         style: TextStyle(
+                  //           color: Colors.white.withOpacity(0.800000011920929),
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //       Text(
+                  //         '${widget.item.origin}',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   width: size.getPropotionateWidth(92),
+                  //   height: size.getPropotionateWidth(80),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(12),
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.topCenter,
+                  //       end: Alignment.bottomRight,
+                  //       colors: [
+                  //         Colors.white.withOpacity(0.25),
+                  //         Colors.white.withOpacity(0.15),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       Text(
+                  //         'Size',
+                  //         style: TextStyle(
+                  //           color: Colors.white.withOpacity(0.800000011920929),
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //       Text(
+                  //         '${widget.item.size}',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   width: size.getPropotionateWidth(92),
+                  //   height: size.getPropotionateWidth(80),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(12),
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.topCenter,
+                  //       end: Alignment.bottomRight,
+                  //       colors: [
+                  //         Colors.white.withOpacity(0.25),
+                  //         Colors.white.withOpacity(0.15),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //     children: [
+                  //       Text(
+                  //         'Color',
+                  //         style: TextStyle(
+                  //           color: Colors.white.withOpacity(0.800000011920929),
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //       Text(
+                  //         '${widget.item.color}',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 12,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  //   ],
+                  // ),
+                  // SizedBox(
+                  //   height: size.getPropotionateHeight(14),
+                  // ),
                   Text(
                     'Description',
                     style: TextStyle(

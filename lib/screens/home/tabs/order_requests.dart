@@ -47,96 +47,119 @@ class _OrderRequestsTabState extends State<OrderRequestsTab> {
                 height: 15,
               ),
               const Text(
-                "Requests",
+                "My Orders",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              TabBar(
-                isScrollable: true,
-                tabs: [
-                  Tab(
-                    text: 'Pending(${itmOrder.getSepeateOrderMainUser(approval: 'pending').length})',
-                  ),
-                  const Tab(text: 'Approved'),
-                  const Tab(text: 'Rejected'),
-                ],
-              ),
+              // TabBar(
+              //   isScrollable: true,
+              //   tabs: [
+              //     Tab(
+              //       text: 'Pending(${itmOrder.getSepeateOrderMainUser(approval: 'admin_pending').length})',
+              //     ),
+              //     const Tab(text: 'Approved'),
+              //     const Tab(text: 'Rejected'),
+              //   ],
+              // ),
               // Expanded(child: Container())
               Expanded(
-                child: TabBarView(
-                  children: [
-                    // Content of Tab 1
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      child: ListView.separated(
-                        itemCount: itmOrder.getSepeateOrderMainUser(approval: 'pending').length,
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(
-                            height: 14,
-                          );
-                        },
-                        itemBuilder: (context, index) {
-                          return SupplierRequestCard(
-                            size: size,
-                            order: itmOrder.getSepeateOrderMainUser(approval: 'pending')[index],
-                            showButtons: true,
-                          );
-                        },
-                      ),
-                    ),
-                    // Content of Tab 2
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      child: ListView.separated(
-                        itemCount: itmOrder.getSepeateOrderMainUser(approval: 'approved').length,
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(
-                            height: 14,
-                          );
-                        },
-                        itemBuilder: (context, index) {
-                          return SupplierRequestCard(
-                            size: size,
-                            order: itmOrder.getSepeateOrderMainUser(approval: 'approved')[index],
-                            // onTap: () => Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute<void>(
-                            //     builder: (BuildContext context) => const SingleSupplierRequest(),
-                            //   ),
-                            // ),
-                          );
-                        },
-                      ),
-                    ),
-                    // Content of Tab 3
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      child: ListView.separated(
-                        itemCount: itmOrder.getSepeateOrderMainUser(approval: 'rejected').length,
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(
-                            height: 14,
-                          );
-                        },
-                        itemBuilder: (context, index) {
-                          return SupplierRequestCard(
-                            size: size,
-                            order: itmOrder.getSepeateOrderMainUser(approval: 'rejected')[index],
-                            // onTap: () => Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute<void>(
-                            //     builder: (BuildContext context) => const SingleSupplierRequest(),
-                            //   ),
-                            // ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: ListView.separated(
+                    itemCount: itmOrder.getSepeateOrderMainUser(approval: '').length,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 14,
+                      );
+                    },
+                    itemBuilder: (context, index) {
+                      return SupplierRequestCard(
+                        size: size,
+                        order: itmOrder.getSepeateOrderMainUser(approval: '')[index],
+                        // onTap: () => Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute<void>(
+                        //     builder: (BuildContext context) => const SingleSupplierRequest(),
+                        //   ),
+                        // ),
+                      );
+                    },
+                  ),
                 ),
+                // child: TabBarView(
+                //   children: [
+                //     // Content of Tab 1
+                //     Container(
+                //       padding: const EdgeInsets.all(20),
+                //       child: ListView.separated(
+                //         itemCount: itmOrder.getSepeateOrderMainUser(approval: 'admin_pending').length,
+                //         separatorBuilder: (context, index) {
+                //           return const SizedBox(
+                //             height: 14,
+                //           );
+                //         },
+                //         itemBuilder: (context, index) {
+                //           return SupplierRequestCard(
+                //             size: size,
+                //             order: itmOrder.getSepeateOrderMainUser(approval: 'admin_pending')[index],
+                //             showButtons: true,
+                //           );
+                //         },
+                //       ),
+                //     ),
+                // Content of Tab 2
+                // Container(
+                //   padding: const EdgeInsets.all(20),
+                //   child: ListView.separated(
+                //     itemCount: itmOrder.getSepeateOrderMainUser(approval: 'approved').length,
+                //     separatorBuilder: (context, index) {
+                //       return const SizedBox(
+                //         height: 14,
+                //       );
+                //     },
+                //     itemBuilder: (context, index) {
+                //       return SupplierRequestCard(
+                //         size: size,
+                //         order: itmOrder.getSepeateOrderMainUser(approval: 'approved')[index],
+                //         // onTap: () => Navigator.push(
+                //         //   context,
+                //         //   MaterialPageRoute<void>(
+                //         //     builder: (BuildContext context) => const SingleSupplierRequest(),
+                //         //   ),
+                //         // ),
+                //       );
+                //     },
+                //   ),
+                // ),
+                // Content of Tab 3
+                // Container(
+                //   padding: const EdgeInsets.all(20),
+                //   child: ListView.separated(
+                //     itemCount: itmOrder.getSepeateOrderMainUser(approval: 'rejected').length,
+                //     separatorBuilder: (context, index) {
+                //       return const SizedBox(
+                //         height: 14,
+                //       );
+                //     },
+                //     itemBuilder: (context, index) {
+                //       return SupplierRequestCard(
+                //         size: size,
+                //         order: itmOrder.getSepeateOrderMainUser(approval: 'rejected')[index],
+                //         // onTap: () => Navigator.push(
+                //         //   context,
+                //         //   MaterialPageRoute<void>(
+                //         //     builder: (BuildContext context) => const SingleSupplierRequest(),
+                //         //   ),
+                //         // ),
+                //       );
+                //     },
+                //   ),
+                // ),
+                //   ],
+                // ),
               )
             ],
           );
@@ -235,6 +258,14 @@ class SupplierRequestCard extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+            Text(
+              'Status: ${order.status}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             const SizedBox(
               height: 10,

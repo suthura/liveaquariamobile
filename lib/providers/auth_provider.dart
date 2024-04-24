@@ -91,6 +91,7 @@ class AuthProvider extends ChangeNotifier {
         final response = await CustomHttp.getDio().post(
           kLoginURL,
           data: {
+            "type": getselectedRole == 'Vendor' ? "supplier" : "customer",
             "email": usernameController.text,
             "password": passwordController.text,
           },
@@ -112,7 +113,7 @@ class AuthProvider extends ChangeNotifier {
               ),
               (route) => false);
         } else {
-          errorMessage(context, errorTxt: 'Error Login', btnType: 3).show();
+          errorMessage(context, errorTxt: response.data['message'], btnType: 3).show();
         }
       }
     } catch (e) {
@@ -143,15 +144,17 @@ class AuthProvider extends ChangeNotifier {
     try {
       FormData formData = FormData.fromMap({
         "avatar": getuserimage == null ? "" : [await MultipartFile.fromFile(getuserimage!.path)],
+        "type": "sub_customer",
         "name": nameController.text,
         "email": emailController.text,
         "phone": phoneController.text,
         "password": passwordController.text,
         "password_confirmation": passwordController.text,
+        "customer_id": getloggedinUser!.data!.id
       });
 
       final response = await CustomHttp.getDio().post(
-        kSaveSubUser,
+        kRegister,
         data: formData,
       );
 

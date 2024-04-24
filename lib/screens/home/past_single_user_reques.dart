@@ -415,14 +415,14 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            Text(
-                              '${widget.item.advertisement!.item!.origin}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                            // Text(
+                            //   '${widget.item.advertisement!.item!.origin}',
+                            //   style: const TextStyle(
+                            //     color: Colors.white,
+                            //     fontSize: 12,
+                            //     fontWeight: FontWeight.w400,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -451,14 +451,14 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            Text(
-                              '${widget.item.advertisement!.item!.size}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                            // Text(
+                            //   '${widget.item.advertisement!.item!.size}',
+                            //   style: const TextStyle(
+                            //     color: Colors.white,
+                            //     fontSize: 12,
+                            //     fontWeight: FontWeight.w400,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -487,14 +487,14 @@ class _PastSingleUserRequestState extends State<PastSingleUserRequest> {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            Text(
-                              '${widget.item.advertisement!.item!.color}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                            // Text(
+                            //   '${widget.item.advertisement!.item!.color}',
+                            //   style: const TextStyle(
+                            //     color: Colors.white,
+                            //     fontSize: 12,
+                            //     fontWeight: FontWeight.w400,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

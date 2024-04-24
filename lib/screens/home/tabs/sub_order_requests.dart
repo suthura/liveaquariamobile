@@ -235,7 +235,7 @@ class SupplierRequestCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Note :${order.userNote ?? ""}',
+                  'Note :${order.note ?? ""}',
                   style: TextStyle(color: kTxtWhite),
                 ),
               ],

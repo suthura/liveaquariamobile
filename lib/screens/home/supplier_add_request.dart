@@ -1,6 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:aquaria_mobile/models/common_data_model.dart';
 import 'package:aquaria_mobile/models/main_item_model.dart';
+import 'package:aquaria_mobile/providers/auth_provider.dart';
 import 'package:aquaria_mobile/providers/item_order_provider.dart';
 import 'package:aquaria_mobile/utils/color_constants.dart';
 import 'package:aquaria_mobile/utils/size_config.dart';
@@ -8,6 +11,7 @@ import 'package:aquaria_mobile/widgets/common_back_button.dart';
 import 'package:aquaria_mobile/widgets/common_button.dart';
 import 'package:aquaria_mobile/widgets/common_input_field.dart';
 import 'package:aquaria_mobile/widgets/custom_background_container.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -110,6 +114,258 @@ class _SupplierAddRequestState extends State<SupplierAddRequest> {
                       CommonInputField(
                         hint: 'Description',
                         controller: itmOrder.getDescriptionController,
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Text(
+                        'Country',
+                        style: TextStyle(
+                          color: kTxtWhite,
+                          fontSize: size.getTextSize(14),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(5),
+                      ),
+                      Consumer2<AuthProvider, ItemOrderProvider>(
+                        builder: (context, auth, itemOrd, child) {
+                          return DropdownSearch<Countries>(
+                            filterFn: (item, filter) {
+                              return item.name!.toLowerCase().contains(filter.toLowerCase());
+                            },
+                            popupProps: const PopupProps.menu(
+                              showSearchBox: true,
+                            ),
+                            items: auth.getloadedCommonData!.countries!,
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                              dropdownSearchDecoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                            itemAsString: (item) {
+                              return item.name!;
+                            },
+                            // selectedItem: auth.getloadedCommonData!.countries!.first,
+                            onChanged: (value) {
+                              itemOrd.setselectedCountry(value);
+                              log(value!.toJson().toString());
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Text(
+                        'Color',
+                        style: TextStyle(
+                          color: kTxtWhite,
+                          fontSize: size.getTextSize(14),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(5),
+                      ),
+                      Consumer2<AuthProvider, ItemOrderProvider>(
+                        builder: (context, auth, itemOrd, child) {
+                          return DropdownSearch<FishColors>(
+                            filterFn: (item, filter) {
+                              return item.name!.toLowerCase().contains(filter.toLowerCase());
+                            },
+                            popupProps: const PopupProps.menu(
+                              showSearchBox: true,
+                            ),
+                            items: auth.getloadedCommonData!.colors!,
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                              dropdownSearchDecoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                            itemAsString: (item) {
+                              return item.name!;
+                            },
+                            // selectedItem: auth.getloadedCommonData!.colors!.first,
+                            onChanged: (value) {
+                              itemOrd.setselectedFishColor(value);
+                              log(value!.toJson().toString());
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Text(
+                        'Fin Type',
+                        style: TextStyle(
+                          color: kTxtWhite,
+                          fontSize: size.getTextSize(14),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(5),
+                      ),
+                      Consumer2<AuthProvider, ItemOrderProvider>(
+                        builder: (context, auth, itemOrd, child) {
+                          return DropdownSearch<FinTypes>(
+                            filterFn: (item, filter) {
+                              return item.name!.toLowerCase().contains(filter.toLowerCase());
+                            },
+                            popupProps: const PopupProps.menu(
+                              showSearchBox: true,
+                            ),
+                            items: auth.getloadedCommonData!.finTypes!,
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                              dropdownSearchDecoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                            itemAsString: (item) {
+                              return item.name!;
+                            },
+                            // selectedItem: auth.getloadedCommonData!.colors!.first,
+                            onChanged: (value) {
+                              itemOrd.setSelectedFinType(value);
+                              log(value!.toJson().toString());
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Text(
+                        'Tail Type',
+                        style: TextStyle(
+                          color: kTxtWhite,
+                          fontSize: size.getTextSize(14),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(5),
+                      ),
+                      Consumer2<AuthProvider, ItemOrderProvider>(
+                        builder: (context, auth, itemOrd, child) {
+                          return DropdownSearch<TailTypes>(
+                            filterFn: (item, filter) {
+                              return item.name!.toLowerCase().contains(filter.toLowerCase());
+                            },
+                            popupProps: const PopupProps.menu(
+                              showSearchBox: true,
+                            ),
+                            items: auth.getloadedCommonData!.tailTypes!,
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                              dropdownSearchDecoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                            itemAsString: (item) {
+                              return item.name!;
+                            },
+                            // selectedItem: auth.getloadedCommonData!.colors!.first,
+                            onChanged: (value) {
+                              itemOrd.setSelectedTailType(value);
+                              log(value!.toJson().toString());
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RadioListTile(
+                              fillColor: MaterialStateProperty.all(Colors.white),
+                              title: const Text('Male'),
+                              value: 'Male',
+                              groupValue: itmOrder.getselectedGender,
+                              onChanged: (value) {
+                                itmOrder.setselectedGender(value);
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile(
+                              fillColor: MaterialStateProperty.all(Colors.white),
+                              title: const Text('Female'),
+                              value: 'Female',
+                              groupValue: itmOrder.getselectedGender,
+                              onChanged: (value) {
+                                itmOrder.setselectedGender(value);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Text(
+                        'Age',
+                        style: TextStyle(
+                          color: kTxtWhite,
+                          fontSize: size.getTextSize(14),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(5),
+                      ),
+                      CommonInputField(
+                        hint: 'Age',
+                        controller: itmOrder.itemAgeControllerGetter,
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Text(
+                        'Size',
+                        style: TextStyle(
+                          color: kTxtWhite,
+                          fontSize: size.getTextSize(14),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(5),
+                      ),
+                      CommonInputField(
+                        hint: 'Size',
+                        controller: itmOrder.itemSizeControllerGetter,
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(14),
+                      ),
+                      Text(
+                        'Price',
+                        style: TextStyle(
+                          color: kTxtWhite,
+                          fontSize: size.getTextSize(14),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.getPropotionateHeight(5),
+                      ),
+                      CommonInputField(
+                        hint: 'Price',
+                        controller: itmOrder.itemPriceControllerGetter,
                       ),
                       SizedBox(
                         height: size.getPropotionateHeight(14),
