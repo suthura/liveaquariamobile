@@ -132,13 +132,25 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                     ),
                                     Align(
                                       alignment: Alignment.topRight,
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.favorite,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                      child: loadedItems.getprocecingFavId.contains(loadedItems.getloadedadslist!.data![index].id!)
+                                          ? CupertinoActivityIndicator()
+                                          : IconButton(
+                                              onPressed: () {
+                                                if (loadedItems.getloadedfavoriteslist!.data!
+                                                    .any((element) => element.id == loadedItems.getloadedadslist!.data![index].id)) {
+                                                  loadedItems.removeFavorite(context, loadedItems.getloadedadslist!.data![index].id!);
+                                                } else {
+                                                  loadedItems.addToFavorite(context, loadedItems.getloadedadslist!.data![index].id!);
+                                                }
+                                              },
+                                              icon: Icon(
+                                                Icons.favorite,
+                                                color: loadedItems.getloadedfavoriteslist!.data!
+                                                        .any((element) => element.id == loadedItems.getloadedadslist!.data![index].id)
+                                                    ? Colors.red
+                                                    : Colors.white,
+                                              ),
+                                            ),
                                     )
                                   ],
                                 ),

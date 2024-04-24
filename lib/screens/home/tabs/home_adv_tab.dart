@@ -5,6 +5,8 @@ import 'package:aquaria_mobile/screens/home/favorites.dart';
 import 'package:aquaria_mobile/screens/home/single_user_request.dart';
 import 'package:aquaria_mobile/utils/color_constants.dart';
 import 'package:aquaria_mobile/utils/size_config.dart';
+import 'package:aquaria_mobile/widgets/common_button.dart';
+import 'package:aquaria_mobile/widgets/common_input_field.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomeAdvTab extends StatefulWidget {
   const HomeAdvTab({super.key});
@@ -188,13 +191,7 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                 height: size.getPropotionateHeight(17),
               ),
               Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    childAspectRatio: 1,
-                  ),
+                child: ListView.builder(
                   itemCount: loadedItems.getloadedadslist!.data!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -222,7 +219,8 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
+                            Container(
+                              width: double.infinity,
                               child: Stack(
                                 children: [
                                   ClipRRect(
@@ -234,11 +232,13 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                                         ? Image.asset(
                                             'assets/images/fish.png',
                                             // width: MediaQuery.of(context).size.width * .4,
+                                            width: double.infinity,
                                             height: size.getPropotionateHeight(120),
                                             fit: BoxFit.cover,
                                           )
                                         : CachedNetworkImage(
                                             // width: MediaQuery.of(context).size.width * .4,
+                                            width: double.infinity,
                                             height: size.getPropotionateHeight(120),
                                             fit: BoxFit.cover,
                                             imageUrl: loadedItems.getloadedadslist!.data![index].images![0],
@@ -277,50 +277,128 @@ class _HomeAdvTabState extends State<HomeAdvTab> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Row(
                                 children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width * .4,
-                                    child: Text(
-                                      '${loadedItems.getloadedadslist!.data![index].item!.commonName}',
-                                      style: const TextStyle(
-                                        color: Color(0xFF0E52A8),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  // const SizedBox(
-                                  //   height: 5,
-                                  // ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width * .4,
-                                    child: Text(
-                                      '${loadedItems.getloadedadslist!.data![index].item!.code}',
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  // const SizedBox(
-                                  //   height: 10,
-                                  // ),
-                                  if (loadedItems.getloadedadslist!.data![index].description != null)
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width * .4,
-                                      child: Text(
-                                        limitText('${loadedItems.getloadedadslist!.data![index].description}', 40),
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 10,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width * .4,
+                                          child: Text(
+                                            '${loadedItems.getloadedadslist!.data![index].item!.commonName}',
+                                            style: const TextStyle(
+                                              color: Color(0xFF0E52A8),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
                                         ),
-                                        textAlign: TextAlign.justify,
-                                      ),
+                                        // const SizedBox(
+                                        //   height: 5,
+                                        // ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width * .4,
+                                          child: Text(
+                                            '${loadedItems.getloadedadslist!.data![index].item!.code}',
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                        // const SizedBox(
+                                        //   height: 10,
+                                        // ),
+                                        if (loadedItems.getloadedadslist!.data![index].description != null)
+                                          SizedBox(
+                                            width: MediaQuery.of(context).size.width * .4,
+                                            child: Text(
+                                              limitText('${loadedItems.getloadedadslist!.data![index].description}', 40),
+                                              style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 10,
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                          ),
+                                      ],
                                     ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          Alert(
+                                            context: context,
+                                            content: Consumer<ItemOrderProvider>(
+                                              builder: (context, itmO, child) {
+                                                return Column(
+                                                  children: [
+                                                    CommonInputField(
+                                                      controller: itmO.getlikedislikenoteController,
+                                                      hint: "Note",
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    CommonButton(
+                                                      size: size,
+                                                      btnTxt: 'Like',
+                                                      onTap: () {
+                                                        itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: 1);
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                            buttons: [],
+                                          ).show();
+                                        },
+                                        icon: Icon(
+                                          Icons.thumb_up_outlined,
+                                          color: loadedItems.getloadedadslist!.data![index].isLiked == 1 ? Colors.blue : Colors.grey,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          Alert(
+                                            context: context,
+                                            content: Consumer<ItemOrderProvider>(
+                                              builder: (context, itmO, child) {
+                                                return Column(
+                                                  children: [
+                                                    CommonInputField(
+                                                      controller: itmO.getlikedislikenoteController,
+                                                      hint: "Note",
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    CommonButton(
+                                                      size: size,
+                                                      btnTxt: 'Unlike',
+                                                      onTap: () {
+                                                        itmO.sendlikeDislike(context, id: loadedItems.getloadedadslist!.data![index].id!, vote: -1);
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                            buttons: [],
+                                          ).show();
+                                        },
+                                        icon: Icon(
+                                          Icons.thumb_down_outlined,
+                                          color: loadedItems.getloadedadslist!.data![index].isLiked == -1 ? Colors.blue : Colors.grey,
+                                        ),
+                                      )
+                                    ],
+                                  )
                                 ],
                               ),
                             ),

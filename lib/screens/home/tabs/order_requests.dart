@@ -195,10 +195,6 @@ class SupplierRequestCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: size.getPropotionateWidth(20),
-          vertical: size.getPropotionateHeight(15),
-        ),
         width: double.infinity,
         decoration: BoxDecoration(
           color: const Color(0xFF024F7D).withOpacity(.29),
@@ -210,65 +206,91 @@ class SupplierRequestCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Row(
-              children: [
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '${order.advertisement!.item!.commonName!}\n',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: size.getPropotionateWidth(20),
+                vertical: size.getPropotionateHeight(15),
+              ),
+              child: Row(
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '${order.advertisement!.item!.commonName!}\n',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: 'Item ID: ${order.advertisement!.item!.code!}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
+                        TextSpan(
+                          text: 'Item ID: ${order.advertisement!.item!.code!}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.white.withOpacity(0.25),
-                        Colors.white.withOpacity(0.15),
                       ],
                     ),
                   ),
-                  child: Text(
-                    'Quantity: ${order.quantity}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
+                  const Spacer(),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white.withOpacity(0.25),
+                          Colors.white.withOpacity(0.15),
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-            Text(
-              'Status: ${order.status}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
+                    child: Text(
+                      'Quantity: ${order.quantity}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
+
             const SizedBox(
               height: 10,
+            ),
+            Container(
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                // color: Colors.white,
+                color: const Color.fromARGB(2, 78, 145, 176).withOpacity(1),
+
+                borderRadius: BorderRadius.circular(45),
+                // border: Border.all(
+                // color: const Color.fromARGB(2, 78, 145, 176).withOpacity(1),
+                // width: 3,
+                // ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    order.status!.replaceAll("_", " "),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 1.3,
+                    ),
+                  ),
+                ],
+              ),
             ),
             // Row(
             //   children: [

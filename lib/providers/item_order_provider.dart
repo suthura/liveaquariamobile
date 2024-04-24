@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:convert';
 
 import 'package:aquaria_mobile/models/advertisement_model.dart';
@@ -374,6 +376,39 @@ class ItemOrderProvider extends ChangeNotifier {
     }
   }
 
+  TextEditingController likedislikenoteController = TextEditingController();
+  TextEditingController get getlikedislikenoteController => likedislikenoteController;
+
+  Future<void> sendlikeDislike(context, {required int id, required int vote}) async {
+    try {
+      // setisLoadingItems(true);
+
+      // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
+
+      FormData formData = FormData.fromMap({
+        "vote": vote,
+        "note": likedislikenoteController.text,
+      });
+      final response = await CustomHttp.getDio().post(
+        kLikeDislike + id.toString(),
+        data: formData,
+      );
+
+      var encoded = jsonEncode(response.data);
+      dev.log(response.data.toString());
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        loadAdvertisements(context);
+      } else {
+        errorMessage(context, errorTxt: 'Error Loading Items').show();
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {
+      setisLoadingItems(false);
+    }
+  }
+
   String selectedOrderType = 'Sample';
   String get getselectedOrderType => selectedOrderType;
   setselectedOrderType(val) {
@@ -526,7 +561,7 @@ class ItemOrderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateOrderrRequest(context, {required String status, required SingleOrder item}) async {
+  Future<void> updateOrderrRequest(context, {required String status, required SingleOrder item, bool isFromReview = false}) async {
     try {
       setisUpdatingStatus(true);
 
@@ -534,8 +569,8 @@ class ItemOrderProvider extends ChangeNotifier {
       final response = await CustomHttp.getDio().put(
         "$kSaveOrder/${item.id}",
         data: {
-          "user_status": status,
-          "user_note": userNoteController.text,
+          "status": status,
+          "note": userNoteController.text,
         },
       );
 
@@ -554,9 +589,14 @@ class ItemOrderProvider extends ChangeNotifier {
             DialogButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
+                if (!isFromReview) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                } else {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                }
               },
             ),
           ],
