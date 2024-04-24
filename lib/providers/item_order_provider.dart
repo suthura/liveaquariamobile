@@ -276,6 +276,104 @@ class ItemOrderProvider extends ChangeNotifier {
     }
   }
 
+  AvertisementsModel? loadedfavoriteslist;
+  AvertisementsModel? get getloadedfavoriteslist => loadedfavoriteslist;
+  setloadedfavoriteslist(val) {
+    loadedfavoriteslist = val;
+    notifyListeners();
+  }
+
+  Future<void> loadFavorites(context, {bool showLoader = true}) async {
+    try {
+      if (showLoader) {
+        setisLoadingItems(true);
+      }
+      // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
+      final response = await CustomHttp.getDio().get(
+        kFavorites,
+      );
+
+      var encoded = jsonEncode(response.data);
+      dev.log(response.data.toString());
+
+      AvertisementsModel temp = AvertisementsModel.fromJson(jsonDecode(encoded));
+
+      if (response.statusCode == 200) {
+        setloadedfavoriteslist(temp);
+      } else {
+        errorMessage(context, errorTxt: 'Error Loading Items').show();
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {
+      setisLoadingItems(false);
+    }
+  }
+
+  List<int> procecingFavId = [];
+  List<int> get getprocecingFavId => procecingFavId;
+  addtoprocecingFavId(int id) {
+    procecingFavId.add(id);
+    notifyListeners();
+  }
+
+  removefromprocecingFavId(int id) {
+    procecingFavId.remove(id);
+    notifyListeners();
+  }
+
+  Future<void> addToFavorite(context, int id) async {
+    try {
+      // setisLoadingItems(true);
+      addtoprocecingFavId(id);
+      // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
+      final response = await CustomHttp.getDio().put(
+        kAddFavo + id.toString(),
+      );
+
+      var encoded = jsonEncode(response.data);
+      dev.log(response.data.toString());
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        loadFavorites(context, showLoader: false);
+      } else {
+        errorMessage(context, errorTxt: 'Error Loading Items').show();
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {
+      removefromprocecingFavId(id);
+      setisLoadingItems(false);
+    }
+  }
+
+  Future<void> removeFavorite(context, int id) async {
+    try {
+      // setisLoadingItems(true);
+      addtoprocecingFavId(id);
+
+      // var token = Provider.of<AuthProvider>(context, listen: false).getloggedinUser?.token;
+      final response = await CustomHttp.getDio().put(
+        kRemoveFavo + id.toString(),
+      );
+
+      var encoded = jsonEncode(response.data);
+      dev.log(response.data.toString());
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        loadFavorites(context, showLoader: false);
+      } else {
+        errorMessage(context, errorTxt: 'Error Loading Items').show();
+      }
+    } catch (e) {
+      dev.log(e.toString());
+    } finally {
+      removefromprocecingFavId(id);
+
+      setisLoadingItems(false);
+    }
+  }
+
   String selectedOrderType = 'Sample';
   String get getselectedOrderType => selectedOrderType;
   setselectedOrderType(val) {

@@ -16,5 +16,9 @@ const kGetSUbOrder = "$BASE_URL/sub-orders";
 const kGetCommnData = "$BASE_URL/common-data";
 const kGetBanks = "$BASE_URL/banks";
 
+const kFavorites = "$BASE_URL/advertisements/favorites";
+const kAddFavo = "$BASE_URL/advertisements/add-to-favorite/";
+const kRemoveFavo = "$BASE_URL/advertisements/remove-from-favorite/";
+
 ////
 
